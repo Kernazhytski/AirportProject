@@ -8,9 +8,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/person")
 @CrossOrigin(origins = "*", maxAge = 3600)
-public class MainController {
-    @GetMapping("/my-resource")
+public class PersonController {
+    @GetMapping("/add")
     public ResponseEntity<String> getMyResource() {
         return new ResponseEntity<>("as", HttpStatus.OK);
     }
