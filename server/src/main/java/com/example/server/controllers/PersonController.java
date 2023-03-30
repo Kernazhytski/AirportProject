@@ -1,18 +1,29 @@
 package com.example.server.controllers;
 
+import com.example.server.models.Person;
+import com.example.server.services.PersonService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/person")
 @CrossOrigin(origins = "*", maxAge = 3600)
 public class PersonController {
-    @GetMapping("/add")
-    public ResponseEntity<String> getMyResource() {
-        return new ResponseEntity<>("as", HttpStatus.OK);
+
+    @Autowired
+    private PersonService personService;
+
+    @PostMapping("/add")
+    public ResponseEntity<?> add(@RequestBody Person personRequest) {
+        personService.addPerson(personRequest);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @GetMapping("/list")
+    public ResponseEntity<?> getListAll(@RequestParam(value = "job",defaultValue = "all") String job) {
+        return new ResponseEntity<>(personService.getList(job),HttpStatus.OK);
     }
 }

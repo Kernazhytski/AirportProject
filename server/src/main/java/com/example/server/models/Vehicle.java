@@ -1,28 +1,33 @@
 package com.example.server.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.persistence.*;
+import lombok.*;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class Vehicle {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "table-generator")
+    @TableGenerator(name = "table-generator", allocationSize = 1)
     private Integer id;
 
+    @NonNull
+    @Column(nullable = false)
     private String type;
+    @NonNull
+    @Column(nullable = false)
     private String model;
+    @NonNull
+    @Column(nullable = false)
     private String number;
+    @NonNull
+    @Column(nullable = false)
     private int crews;
+    @NonNull
+    @Column(nullable = false)
     private int passengers;
 }
 
