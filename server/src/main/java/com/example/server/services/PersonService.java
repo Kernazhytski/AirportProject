@@ -1,23 +1,24 @@
 package com.example.server.services;
 
 
+import com.example.server.DTO.person.PersonNameProfession;
 import com.example.server.models.Person;
 import com.example.server.repo.PersonRepo;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
-import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class PersonService {
-
     @Autowired
     private EntityManager entityManager;
 
@@ -26,6 +27,8 @@ public class PersonService {
     Root<Person> root;
     Predicate predicate;
 
+    List<Person> responceList;
+
     @Autowired
     private PersonRepo personRepo;
 
@@ -33,9 +36,10 @@ public class PersonService {
         personRepo.save(p);
     }
 
-    public List<Person> getList(String param) {
+    public List<?> getList(String param, String fields) {
+
         if (param.equals("all")) {
-            return personRepo.findAll();
+            responceList = personRepo.findAll();
         } else {
             // Получаем объект CriteriaBuilder, который используется для создания критериев
             criteriaBuilder = entityManager.getCriteriaBuilder();
@@ -55,7 +59,22 @@ public class PersonService {
             criteriaQuery.where(predicate);
 
             // Выполняем запрос и получаем результат
-            return entityManager.createQuery(criteriaQuery).getResultList();
+            responceList = entityManager.createQuery(criteriaQuery).getResultList();
         }
+        switch (fields) {
+            case "NameProfession":
+                System.out.println(Arrays.toString(responceList.toArray()));
+                List<PersonNameProfession> personNameProfessions = responceList.stream().map(p -> new PersonNameProfession(
+                                p.getId(),
+                                p.getFirstName(),
+                                p.getSecondName(),
+                                p.getProfession()))
+                        .collect(Collectors.toList());
+                System.out.println(Arrays.toString(personNameProfessions.toArray()));
+                return personNameProfessions;
+            default:
+                return responceList;
+        }
+
     }
 }
