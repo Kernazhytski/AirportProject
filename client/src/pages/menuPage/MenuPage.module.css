@@ -1,0 +1,38 @@
+.con{
+    width:750px;
+    height:500px;
+    background: #77A6F7;
+    border-radius: 10px;
+}
+
+.con2{
+    width: 250px;
+    height: 100%;
+    display: inline-block;
+}
+
+.butCon{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+
+.tabCon{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding-top: 100px;
+    padding-bottom: 100px;
+    float: right;
+    width: 500px;
+    padding-right: 10px;
+    padding-left: 10px;
+}

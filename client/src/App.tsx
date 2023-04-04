@@ -1,13 +1,20 @@
 import React from 'react';
 import './App.css';
-import {BrowserRouter} from "react-router-dom";
-import Router from "./Router";
+import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import MenuPage from "./pages/menuPage/MenuPage";
+import Shedule from "./components/Schedule/Shedule";
+
 
 function App() {
     return (
-        <BrowserRouter>
-          <Router/>
-        </BrowserRouter>
+        <Shedule>
+            <Router>
+                <Routes>
+                    <Route path="*" element={<MenuPage/>}/>
+                </Routes>
+            </Router>
+        </Shedule>
+
     );
 }
 
