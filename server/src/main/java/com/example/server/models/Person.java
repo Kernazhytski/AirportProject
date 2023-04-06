@@ -1,7 +1,9 @@
 package com.example.server.models;
 
-import jakarta.persistence.*;
+
 import lombok.*;
+
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -10,8 +12,7 @@ import lombok.*;
 @RequiredArgsConstructor
 public class Person {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "table-generator")
-    @TableGenerator(name = "table-generator", allocationSize = 1)
+    @GeneratedValue(strategy= GenerationType.AUTO)
     private long id;
     @NonNull
     @Column(nullable = false)
