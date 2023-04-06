@@ -1,9 +1,7 @@
 package com.example.server.models;
 
-
+import jakarta.persistence.*;
 import lombok.*;
-
-import javax.persistence.*;
 
 @Entity
 @Getter
@@ -12,7 +10,8 @@ import javax.persistence.*;
 @RequiredArgsConstructor
 public class Vehicle {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "table-generator")
+    @TableGenerator(name = "table-generator", allocationSize = 1)
     private Integer id;
 
     @NonNull
