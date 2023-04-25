@@ -73,6 +73,7 @@ public class PersonService {
                 System.out.println(Arrays.toString(personNameProfessions.toArray()));
                 return personNameProfessions;
             default:
+                System.out.println(responceList.get(0));
                 return responceList;
         }
 

@@ -4,11 +4,12 @@ import styles from './LightButton.module.css'
 
 interface Button {
     children: string;
+    onClick?:()=>void;
 }
 
-const LightButton:FC<Button> = ({children}) => {
+const LightButton:FC<Button> = ({children,onClick}) => {
     return (
-        <Button variant="light" className={styles.but}>{children}</Button>
+        <Button variant="light" className={styles.but} onClick={onClick}>{children}</Button>
     );
 };
 

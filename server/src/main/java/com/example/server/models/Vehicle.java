@@ -8,6 +8,7 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @RequiredArgsConstructor
+@ToString
 public class Vehicle {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "table-generator")
@@ -26,6 +27,11 @@ public class Vehicle {
     @NonNull
     @Column(nullable = false)
     private int crews;
+
+    public Vehicle(Integer id) {
+        this.id = id;
+    }
+
     @NonNull
     @Column(nullable = false)
     private int passengers;
