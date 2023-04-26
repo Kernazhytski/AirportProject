@@ -9,7 +9,7 @@ import java.io.IOException;
 
 public class PersonNameProfessionSerializer extends JsonSerializer<PersonNameProfession> {
     @Override
-    public void serialize(PersonNameProfession personNameProfession, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException, IOException {
+    public void serialize(PersonNameProfession personNameProfession, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
         jsonGenerator.writeStartObject();
         jsonGenerator.writeStringField("firstName", personNameProfession.getFirstName());
         jsonGenerator.writeStringField("profession", personNameProfession.getProfession());
