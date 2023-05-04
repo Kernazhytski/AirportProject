@@ -2,11 +2,11 @@ package com.example.server.models;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 @Entity
+@Getter
+@Setter
 @ToString
 public class Gender {
     public Gender(String gender) {
