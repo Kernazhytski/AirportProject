@@ -1,42 +1,38 @@
-package com.example.server.models;
+package com.example.server.models.persons;
 
+import com.example.server.models.Gender;
+import com.example.server.models.Vehicle;
 import jakarta.persistence.*;
 import lombok.*;
+
 
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
-@RequiredArgsConstructor
-@ToString
-public class Person {
+public abstract class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "table-generator")
     @TableGenerator(name = "table-generator", allocationSize = 1)
-    private long id;
+    protected Long id;
 
     @NonNull
     @Column(nullable = false)
-    private String firstName;
+    protected String firstName;
 
     @NonNull
     @Column(nullable = false)
-    private String secondName;
+    protected String secondName;
 
     @NonNull
     @Column(nullable = false)
-    private int age;
-
-    @NonNull
-    @Column(nullable = false)
-    private String profession;
+    protected int age;
 
     @ManyToOne
     @JoinColumn(name = "gender_id")
-    private Gender gender;
+    protected Gender gender;
 
     @ManyToOne
     @JoinColumn(name = "vehicle_id")
-    private Vehicle vehicle;
+    protected Vehicle vehicle;
 
 }
