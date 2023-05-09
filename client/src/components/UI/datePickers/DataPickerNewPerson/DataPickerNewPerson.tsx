@@ -12,9 +12,9 @@ interface Props {
 
 const DataPickerNewPerson: FC<Props> = (Props: Props) => {
     return (
-        <div style={{...Props, display: "inline-block", borderRadius:"5px"}}>
+        <div style={{...Props, display: "inline-block", borderRadius:"5px"}} >
             <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DatePicker label={"Выберите дату рождения"} slotProps={{textField:{fullWidth:true}}}/>
+                <DatePicker label={"Выберите дату рождения"}  className={styles.date} slotProps={{textField:{fullWidth:true}}}/>
         </LocalizationProvider>
 </div>
 )

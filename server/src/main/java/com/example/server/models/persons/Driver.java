@@ -11,5 +11,5 @@ import lombok.*;
 @ToString
 public class Driver extends Person {
     @NonNull
-    protected String pilotLycense;
+    protected String driverLycense;
 }

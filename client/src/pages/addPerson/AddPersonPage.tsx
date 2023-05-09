@@ -9,42 +9,80 @@ import {DatePicker, LocalizationProvider} from "@mui/lab";
 import {DateRange} from "@mui/lab/DateRangePicker";
 import FirstInput from "../../components/UI/inputs/firstInput/FirstInput";
 import {Button} from "@mui/material";
+import OutlinedButton from "../../components/UI/Buttons/outlinedButton/OutlinedButton";
+import ArrayInput from "../../components/UI/inputs/arrayInputs/ArrayInput";
 
 
 const AddPersonPage: FC = () => {
 
-    const [selectedDate, setSlectedDate] = useState<Date | null>(null);
+    const [name, setName] = useState<string | null>(null);
+    const [surname, setSurname] = useState<string | null>(null);
+    const [gender, setGender] = useState<string>("Мужской");
+    const [job, setJob] = useState("Пилот")
+    const [special, setSpecial] = useState<any>(null);
 
-    const dateChange = (date: Date | DateRange<any>) => {
-        console.log("HOJ")
+    const DataPickerCss = {
+        background: "white",
+        margin: "20px 0px 0px 0px",
+        width: "100%"
     }
 
-    const DataPickerCss={
-        background:"white",
-        margin:"20px 0px 0px 0px",
-        width:"100%"
+    const InputCss = {
+        border: "1px solid black",
+        margin: "20px 0 0 0",
     }
 
-    const InputCss={
-        margin:"20px 0 0 0"
+    const SelectCSS = {
+        margin: "20px 0 0 0"
     }
 
-    const SelectCSS={
-        margin:"20px 0 0 0"
+    const LanguagesCSS = {
+        margin: "20px 0 0 0"
     }
+
+    const genderArray = ["Мужской", "Женский"]
+
+    const jobArray = ["Пилот", "Водитель", "Стюардесса"];
+
+    const languagesArray = ["Английский", "Испанский", "Русский"];
+
+    function clickButton() {
+        console.log(special)
+    }
+
 
     return (
         <div className={styles.con}>
-            <FirstInput placeholder={"Имя"} {...InputCss}/>
-            <FirstInput placeholder={"Фамилия"} {...InputCss}/>
+            <FirstInput placeholder={"Имя"} {...InputCss} onChange={setName}/>
+            <FirstInput placeholder={"Фамилия"} {...InputCss} onChange={setSurname}/>
 
-            <FirstSelect placeholder={"Выберите пол"} variables={["Мужской","Женский"]} {...SelectCSS}/>
+            <FirstSelect placeholder={"Выберите пол"} variables={genderArray} {...SelectCSS}
+                         selector={setGender}/>
 
             <DataPickerNewPerson {...DataPickerCss}/>
 
-            <FirstSelect placeholder={"Выберите профессию"} variables={["Пилот","Водитель","Диспетчер"]} {...SelectCSS}/>
+            <FirstSelect placeholder={"Выберите профессию"}
+                         variables={jobArray} {...SelectCSS} selector={setJob}/>
 
-            <Button variant="outlined">Добавить работягу</Button>
+            {
+                job === jobArray[0] ?
+                    (<>
+                        <FirstInput placeholder={"Полетная лицензия"} {...InputCss} onChange={setSpecial}/>
+                    </>)
+                    : job === jobArray[1] ? (<>
+                            <FirstInput placeholder={"Водительские права"} {...InputCss} onChange={setSpecial}/>
+                        </>)
+                        : job === jobArray[2] ? (<>
+                                <ArrayInput array={languagesArray} placeholder={"Выберете языки"} {...LanguagesCSS}
+                                            setChoosenJobs={setSpecial}/>
+                            </>)
+                            : null
+            }
+
+            <div style={{display: "flex", alignItems: "center", justifyContent: "center", marginTop: "30px"}}>
+                <OutlinedButton onClick={clickButton}>Добавить работягу</OutlinedButton>
+            </div>
+
         </div>
     );
 };

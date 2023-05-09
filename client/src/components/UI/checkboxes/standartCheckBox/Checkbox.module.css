@@ -1,0 +1,19 @@
+.con{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.con:hover{
+    cursor: pointer;
+}
+
+.box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid black;
+}
+
