@@ -1,81 +1,69 @@
 package com.example.server.services;
 
 
-import com.example.server.DTO.person.PersonNameProfession;
-import com.example.server.models.Person;
-import com.example.server.repo.PersonRepo;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Predicate;
-import jakarta.persistence.criteria.Root;
+import com.example.server.DTO.person.AllPersons;
+import com.example.server.models.persons.Driver;
+import com.example.server.models.persons.Pilot;
+import com.example.server.models.persons.Stewardess;
+import com.example.server.repo.DriverRepo;
+import com.example.server.repo.PilotRepo;
+import com.example.server.repo.StewardessRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.converter.json.MappingJacksonValue;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
-@Component
+@Service
 public class PersonService {
-    @Autowired
-    private EntityManager entityManager;
+    AllPersons allPersons;
 
-    CriteriaBuilder criteriaBuilder;
-    CriteriaQuery<Person> criteriaQuery;
-    Root<Person> root;
-    Predicate predicate;
-
-    List<Person> responceList;
+    List<List<?>> responce;
 
     @Autowired
-    private PersonRepo personRepo;
+    private PilotRepo pilotRepo;
 
-    public void addPerson(Person p) {
-        personRepo.save(p);
+    @Autowired
+    private DriverRepo driverRepo;
+
+    @Autowired
+    private StewardessRepo stewardessRepo;
+
+    public void addPilot(Pilot p) {
+        pilotRepo.save(p);
     }
 
-    public List<?> getList(String param, String fields) {
+    public void addDriver(Driver p) {
+        driverRepo.save(p);
+    }
 
-        if (param.equals("all")) {
-            responceList = personRepo.findAll();
+    public void addStewardess(Stewardess p) {
+        stewardessRepo.save(p);
+    }
+
+    public List<List<?>> getList(String job, String fields) {
+        responce = new ArrayList<>();
+        if (job.equals("all")) {
+            /*allPersons = new AllPersons();
+            allPersons.setStewardesses(stewardessRepo.findAll());
+            allPersons.setDrivers(driverRepo.findAll());
+            allPersons.setPilots(pilotRepo.findAll());*/
+            responce.add(driverRepo.findAll());
+            responce.add(pilotRepo.findAll());
+            responce.add(stewardessRepo.findAll());
         } else {
-            // Получаем объект CriteriaBuilder, который используется для создания критериев
-            criteriaBuilder = entityManager.getCriteriaBuilder();
-
-            // Создаем объект CriteriaQuery, который будет использоваться для построения запроса
-            criteriaQuery = criteriaBuilder.createQuery(Person.class);
-
-            // Создаем корневой объект, который представляет тип данных, по которым мы хотим выполнить запрос
-            root = criteriaQuery.from(Person.class);
-            // Создаем условие для выборки записей
-            // В данном случае мы выбираем записи, у которых поле "name" равно "John" и поле "email" равно "john@example.com"
-            predicate = criteriaBuilder.and(
-                    criteriaBuilder.equal(root.get("profession"), param)
-            );
-
-            // Добавляем условие в запрос
-            criteriaQuery.where(predicate);
-
-            // Выполняем запрос и получаем результат
-            responceList = entityManager.createQuery(criteriaQuery).getResultList();
+            switch (job){
+                case "pilot":
+                    responce.add(pilotRepo.findAll());
+                    break;
+                case "stewardess":
+                    responce.add(stewardessRepo.findAll());
+                    break;
+                case "driver":
+                    responce.add(driverRepo.findAll());
+                    break;
+            }
         }
-        switch (fields) {
-            case "NameProfession":
-                System.out.println(Arrays.toString(responceList.toArray()));
-                List<PersonNameProfession> personNameProfessions = responceList.stream().map(p -> new PersonNameProfession(
-                                p.getId(),
-                                p.getFirstName(),
-                                p.getSecondName(),
-                                p.getProfession()))
-                        .collect(Collectors.toList());
-                System.out.println(Arrays.toString(personNameProfessions.toArray()));
-                return personNameProfessions;
-            default:
-                System.out.println(responceList.get(0));
-                return responceList;
-        }
-
+        return responce;
     }
 }
