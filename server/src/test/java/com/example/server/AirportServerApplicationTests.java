@@ -3,6 +3,7 @@ package com.example.server;
 
 import com.example.server.models.Gender;
 import com.example.server.models.persons.Driver;
+import com.example.server.models.persons.Pilot;
 import com.example.server.services.PersonService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,34 +13,47 @@ import java.util.*;
 
 import static org.junit.Assert.assertEquals;
 
-
-
 @SpringBootTest
 public class AirportServerApplicationTests {
 
-	@Autowired
-	private PersonService personService;
+    @Autowired
+    private PersonService personService;
 
-	@Test
-	public void testSomething() {
-		int expected = 2;
-		int actual = 1+1;
-		assertEquals(expected, actual);
-	}
+    @Test
+    public void testSomething() {
+        int expected = 2;
+        int actual = 1 + 1;
+        assertEquals(expected, actual);
+    }
 
-	@Test
-	public void getPersonsTest() {
-		/*List<List<?>> expectedPersons = new ArrayList<>();
-		List<Driver> expectedDrivers = new ArrayList<>();
-		expectedDrivers.add(new Driver(5L,"Zhenya","Bet", 19, new Gender("Мужской")));
-		expectedDrivers.add(new Driver(6L, "Dmitry", "Nesterkov", 19, new Gender("Мужской")));
-		expectedPersons.add(expectedDrivers);*/
+    @Test
+    public void getDriverTest() {
+        Driver expectedDriver = new Driver(9L, "Andrei", "Kernazh", "16.7.2003", new Gender("Мужской"), "123");
+        List<List<?>> actualPersons = personService.getList("driver", "");
 
-		List<List<?>> actualPersons = personService.getList("driver","");
-		List<List<?>> expectedPersons = actualPersons;
+        List<?> drivers = actualPersons.get(0);
+        for(Object driver:drivers){
+            if(driver instanceof Driver){
+                assertEquals(expectedDriver, driver);
+            }
+        }
 
-		System.out.println(personService.getList("driver", ""));
+        System.out.println(personService.getList("driver", ""));
+    }
 
-		assertEquals(expectedPersons, actualPersons);
-	}
+    @Test
+    public void getPilotTest() {
+        Pilot expectedPilot = new Pilot(10L, "Nataliya", "Shevcova", "1.8.1975", new Gender("Мужской"), "322");
+
+        List<List<?>> actualPersons = personService.getList("pilot", "");
+
+        List<?> pilots = actualPersons.get(0);
+        for(Object pilot:pilots){
+            if(pilot instanceof Pilot){
+                assertEquals(expectedPilot, pilot);
+            }
+        }
+
+        System.out.println(personService.getList("pilot", ""));
+    }
 }
