@@ -1,0 +1,54 @@
+.con {
+    width: 100%;
+    background-color: white;
+    border-radius: 5px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    padding: 10px;
+}
+
+
+.con:focus .arrow {
+    stroke: #5E96FC;
+    transform: matrix(1, 0, 0, -1, 0, 0);
+}
+
+.vypad {
+    margin-top: 5px;
+    width: 100%;
+    background-color: white;
+    border-radius: 5px;
+    flex-direction: column;
+    padding: 10px;
+
+    border-collapse: collapse;
+    display: grid;
+    grid-template-columns: 1fr 8fr;
+    row-gap: 10px;
+
+    animation: fadeIn 0.4s forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-140px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0px);
+    }
+}
+
+.placeholder {
+    flex-grow: 1;
+    margin: 0;
+}
+
+.arrow {
+    transition: 0.5s;
+    transform: matrix(1, 0, 0, 1, 0, 0);
+    stroke: black;
+}

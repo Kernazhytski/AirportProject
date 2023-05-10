@@ -8,17 +8,25 @@ interface Props {
     background?: string;
     margin?: string;
     width?: string;
+
+    setAge(age: Date|null): void;
 }
 
 const DataPickerNewPerson: FC<Props> = (Props: Props) => {
+
+    const handleChange = (date:Date | null) => {
+        Props.setAge(date);
+    }
+
     return (
-        <div style={{...Props, display: "inline-block", borderRadius:"5px"}}>
+        <div style={{...Props, display: "inline-block", borderRadius: "5px"}}>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DatePicker label={"Выберите дату рождения"} slotProps={{textField:{fullWidth:true}}}/>
-        </LocalizationProvider>
-</div>
-)
-    ;
+                <DatePicker label={"Выберите дату рождения"} className={styles.date}
+                            slotProps={{textField: {fullWidth: true}}} onChange={handleChange} />
+            </LocalizationProvider>
+        </div>
+    )
+        ;
 };
 
 export default DataPickerNewPerson;

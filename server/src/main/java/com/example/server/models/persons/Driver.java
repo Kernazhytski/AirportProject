@@ -11,7 +11,8 @@ import lombok.*;
 @ToString
 public class Driver extends Person {
     @NonNull
-    protected String pilotLycense;
+
+    protected String driverLycense;
 
     public Driver() {
     }
@@ -23,4 +24,5 @@ public class Driver extends Person {
         this.age = age;
         this.gender = gender;
     }
+
 }

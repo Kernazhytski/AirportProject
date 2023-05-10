@@ -1,22 +1,21 @@
 import React, {FC} from 'react';
-import Form from "react-bootstrap/Form";
-import FloatingLabel from "react-bootstrap/FloatingLabel";
+import styles from './FirstInput.module.css'
+
 
 interface IButton {
-    placeholder:string;
-    margin:string;
+    placeholder: string;
+    margin: string;
+
+    onChange(e: string): void;
 }
 
-const FirstInput:FC<IButton> = ({placeholder,margin}) => {
+
+const FirstInput: FC<IButton> = ({placeholder, margin, onChange}) => {
+
+
     return (
-        <FloatingLabel
-            controlId="floatingInput"
-            label={placeholder}
-            className="mb-3"
-            style={{margin}}
-        >
-            <Form.Control type="text" placeholder={placeholder}/>
-        </FloatingLabel>
+        <input type={"text"} className={styles.input} style={{margin}} placeholder={placeholder}
+               onChange={e => onChange(e.target.value)}/>
     );
 };
 

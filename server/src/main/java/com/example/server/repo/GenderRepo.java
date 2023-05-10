@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface GenderRepo extends CrudRepository<Gender, String> {
     List<Gender> findAll();
+    Gender findByGender(String gender);
 }
