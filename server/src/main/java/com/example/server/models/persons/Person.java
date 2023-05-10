@@ -5,6 +5,8 @@ import com.example.server.models.Vehicle;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.sql.Date;
+
 
 @Entity
 @Getter
@@ -25,7 +27,7 @@ public abstract class Person {
 
     @NonNull
     @Column(nullable = false)
-    protected int age;
+    protected String age;
 
     @ManyToOne
     @JoinColumn(name = "gender_id")

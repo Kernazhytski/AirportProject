@@ -43,7 +43,7 @@ const ArrayInput: FC<Props> = ({array, placeholder, margin, setChoosenJobs}) => 
             newJobs[index].isChoosen = !newJobs[index].isChoosen;
             setJobs(newJobs);
 
-            const fieldNames =jobs.filter((job) => job.isChoosen).map(job => ({language: job.language}));
+            const fieldNames = jobs.filter((job) => job.isChoosen).map(job => ( job.language));
             setChoosenJobs(fieldNames);
         }
 

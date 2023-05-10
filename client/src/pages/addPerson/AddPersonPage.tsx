@@ -1,25 +1,21 @@
 import React, {FC, useState} from 'react';
 import styles from './Addperson.module.css'
-import FloatingLabel from 'react-bootstrap/FloatingLabel';
-import {Form} from 'react-bootstrap';
 import FirstSelect from "../../components/UI/selects/selectGender/FirstSelect";
 import DataPickerNewPerson from "../../components/UI/datePickers/DataPickerNewPerson/DataPickerNewPerson";
-import AdapterDateFns from "@mui/lab/AdapterDateFns";
-import {DatePicker, LocalizationProvider} from "@mui/lab";
-import {DateRange} from "@mui/lab/DateRangePicker";
 import FirstInput from "../../components/UI/inputs/firstInput/FirstInput";
-import {Button} from "@mui/material";
 import OutlinedButton from "../../components/UI/Buttons/outlinedButton/OutlinedButton";
 import ArrayInput from "../../components/UI/inputs/arrayInputs/ArrayInput";
+import {PersonService} from "../../services/PersonService";
 
 
 const AddPersonPage: FC = () => {
 
-    const [name, setName] = useState<string | null>(null);
-    const [surname, setSurname] = useState<string | null>(null);
+    const [firstName, setName] = useState<string | null>(null);
+    const [secondName, setSurname] = useState<string | null>(null);
     const [gender, setGender] = useState<string>("Мужской");
     const [job, setJob] = useState("Пилот")
     const [special, setSpecial] = useState<any>(null);
+    const [age, setAge] = useState<any>(new Date('1990-01-01'));
 
     const DataPickerCss = {
         background: "white",
@@ -46,8 +42,15 @@ const AddPersonPage: FC = () => {
 
     const languagesArray = ["Английский", "Испанский", "Русский"];
 
-    function clickButton() {
-        console.log(special)
+    async function clickButton() {
+        const date = new Date(age?.$d);
+        console.log(date.getDate().toString() + "." + date.getMonth().toString() + "." + date.getFullYear().toString())
+        await PersonService.createPerson({
+            firstName,
+            secondName,
+            age: date.getDate().toString() + "." + date.getMonth().toString() + "." + date.getFullYear().toString(),
+            gender
+        }, special, job);
     }
 
 
@@ -59,7 +62,7 @@ const AddPersonPage: FC = () => {
             <FirstSelect placeholder={"Выберите пол"} variables={genderArray} {...SelectCSS}
                          selector={setGender}/>
 
-            <DataPickerNewPerson {...DataPickerCss}/>
+            <DataPickerNewPerson {...DataPickerCss} setAge={setAge}/>
 
             <FirstSelect placeholder={"Выберите профессию"}
                          variables={jobArray} {...SelectCSS} selector={setJob}/>
