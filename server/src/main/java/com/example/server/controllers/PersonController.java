@@ -38,7 +38,7 @@ public class PersonController {
     }
 
     @GetMapping("/list")
-    public ResponseEntity<?> getListAll(@RequestParam(value = "job", defaultValue = "all") String job,
+    public ResponseEntity<?> getPersons(@RequestParam(value = "job", defaultValue = "all") String job,
                                         @RequestParam(value = "fields", defaultValue = "all") String fields) {
         System.out.println(personService.getList(job, fields));
         return new ResponseEntity<>(personService.getList(job, fields), HttpStatus.OK);
