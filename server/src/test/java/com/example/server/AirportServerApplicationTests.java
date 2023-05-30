@@ -4,6 +4,7 @@ package com.example.server;
 import com.example.server.models.Gender;
 import com.example.server.models.persons.Driver;
 import com.example.server.models.persons.Pilot;
+import com.example.server.models.persons.Stewardess;
 import com.example.server.services.PersonService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,4 +57,18 @@ public class AirportServerApplicationTests {
 
         System.out.println(personService.getList("pilot", ""));
     }
+    @Test
+    public void getStewardess() {
+        Stewardess expectedStewardess = new Stewardess(11L, "Andrei", "Kernazh", "16.7.2003", new Gender("Женский"));
+
+        List<List<?>> actualPersons = personService.getList("stewardess", "");
+
+        List<?> stewardesses = actualPersons.get(0);
+        for(Object stewardess: stewardesses) {
+            if(stewardess instanceof Stewardess) {
+                assertEquals(expectedStewardess, stewardess);
+            }
+        }
+    }
+
 }

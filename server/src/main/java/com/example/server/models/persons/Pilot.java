@@ -34,7 +34,7 @@ public class Pilot extends Person {
         Pilot pilot = (Pilot) o;
         return id == pilot.id &&
                 ((firstName.equals(pilot.firstName)) &&
-                        (secondName.equals(pilot.secondName) ) &&
+                        (secondName.equals(pilot.secondName)) &&
                         (age.equals(pilot.age)) &&
                         (pilotLycense.equals(pilot.pilotLycense)));
     }
