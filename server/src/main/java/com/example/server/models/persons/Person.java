@@ -1,11 +1,9 @@
 package com.example.server.models.persons;
 
 import com.example.server.models.Gender;
-import com.example.server.models.Vehicle;
+import com.example.server.models.vehicles.Vehicle;
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.sql.Date;
 
 
 @Entity
