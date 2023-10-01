@@ -1,4 +1,4 @@
-package com.example.server.models;
+package com.example.server.models.vehicles;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -6,34 +6,23 @@ import lombok.*;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
-@RequiredArgsConstructor
-@ToString
-public class Vehicle {
+public abstract class Vehicle {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "table-generator")
     @TableGenerator(name = "table-generator", allocationSize = 1)
-    private Integer id;
+    protected Integer id;
 
     @NonNull
     @Column(nullable = false)
-    private String type;
+    protected String type;
     @NonNull
     @Column(nullable = false)
-    private String model;
+    protected String model;
     @NonNull
     @Column(nullable = false)
-    private String number;
+    protected String number;
     @NonNull
     @Column(nullable = false)
-    private int crews;
-
-    public Vehicle(Integer id) {
-        this.id = id;
-    }
-
-    @NonNull
-    @Column(nullable = false)
-    private int passengers;
+    protected int crews;
 }
 

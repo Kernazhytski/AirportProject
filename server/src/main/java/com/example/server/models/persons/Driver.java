@@ -13,7 +13,6 @@ import java.util.Objects;
 @ToString
 public class Driver extends Person {
     @NonNull
-
     protected String driverLycense;
 
     public Driver() {
@@ -36,15 +35,9 @@ public class Driver extends Person {
         Driver driver = (Driver) o;
         return id == driver.id &&
                 ((firstName.equals(driver.firstName)) &&
-                (secondName.equals(driver.secondName) ) &&
-                (age.equals(driver.age)) &&
-                (driverLycense.equals(driver.driverLycense)));
-        /*return Objects.equals(id, driver.id) &&
-                Objects.equals(firstName, driver.firstName) &&
-                Objects.equals(secondName, driver.secondName) &&
-                Objects.equals(age, driver.age) &&
-                gender == driver.gender &&
-                Objects.equals(driverLycense, driver.driverLycense);*/
+                        (secondName.equals(driver.secondName)) &&
+                        (age.equals(driver.age)) &&
+                        (driverLycense.equals(driver.driverLycense)));
     }
 
     // Переопределение метода hashCode

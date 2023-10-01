@@ -16,7 +16,7 @@ import java.util.List;
 
 @Service
 public class PersonService {
-    List<List<?>> responce;
+    List<List<?>> response;
 
     @Autowired
     private PilotRepo pilotRepo;
@@ -40,19 +40,19 @@ public class PersonService {
     }
 
     public List<List<?>> getList(String job, String fields) {
-        responce = new ArrayList<>();
+        response = new ArrayList<>();
         if (job.equals("all")) {
-            responce.add(driverRepo.findAll());
-            responce.add(pilotRepo.findAll());
-            responce.add(stewardessRepo.findAll());
+            response.add(driverRepo.findAll());
+            response.add(pilotRepo.findAll());
+            response.add(stewardessRepo.findAll());
         } else {
             switch(job){
-                case "pilot" -> responce.add(pilotRepo.findAll());
-                case "driver" -> responce.add(driverRepo.findAll());
-                case "stewardess" -> responce.add(stewardessRepo.findAll());
+                case "pilot" -> response.add(pilotRepo.findAll());
+                case "driver" -> response.add(driverRepo.findAll());
+                case "stewardess" -> response.add(stewardessRepo.findAll());
                 default -> throw new IllegalStateException("Unexpected job: " + job);
             }
         }
-        return responce;
+        return response;
     }
 }

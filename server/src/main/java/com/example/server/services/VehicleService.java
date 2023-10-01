@@ -1,57 +1,50 @@
 package com.example.server.services;
 
-import com.example.server.models.Vehicle;
-import com.example.server.repo.VehicleRepo;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Predicate;
-import jakarta.persistence.criteria.Root;
+import com.example.server.models.vehicles.Bus;
+import com.example.server.models.vehicles.FettlingMachine;
+import com.example.server.models.vehicles.Plane;
+import com.example.server.repo.BusRepo;
+import com.example.server.repo.FettlingMachineRepo;
+import com.example.server.repo.PlaneRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
 public class VehicleService {
+    List<List<?>> response;
 
     @Autowired
-    private VehicleRepo vehicleRepo;
+    private BusRepo busRepo;
 
     @Autowired
-    private EntityManager entityManager;
+    private PlaneRepo planeRepo;
 
-    CriteriaBuilder criteriaBuilder;
-    CriteriaQuery<Vehicle> criteriaQuery;
-    Root<Vehicle> root;
-    Predicate predicate;
+    @Autowired
+    private FettlingMachineRepo fettlingMachineRepo;
 
-    public void addVehicle(Vehicle vehicle) {
-        vehicleRepo.save(vehicle);
-    }
+    public void addBus(Bus bus) {busRepo.save(bus);}
 
-    public List<Vehicle> getList(String type) {
-        if (type.equals("all")) {
-            return vehicleRepo.findAll();
+    public void addPlane(Plane plane) {planeRepo.save(plane);}
+
+    public void addFettlingMachine(FettlingMachine fettlingMachine) {fettlingMachineRepo.save(fettlingMachine);}
+
+    public List<List<?>> getList(String type) {
+        response = new ArrayList<>();
+        if(type.equals("all")) {
+            response.add(busRepo.findAll());
+            response.add(planeRepo.findAll());
+            response.add(fettlingMachineRepo.findAll());
         } else {
-            criteriaBuilder = entityManager.getCriteriaBuilder();
-
-            // Создаем объект CriteriaQuery, который будет использоваться для построения запроса
-            criteriaQuery = criteriaBuilder.createQuery(Vehicle.class);
-
-            // Создаем корневой объект, который представляет тип данных, по которым мы хотим выполнить запрос
-            root = criteriaQuery.from(Vehicle.class);
-            // Создаем условие для выборки записей
-            // В данном случае мы выбираем записи, у которых поле "name" равно "John" и поле "email" равно "john@example.com"
-            predicate = criteriaBuilder.and(
-                    criteriaBuilder.equal(root.get("type"), type)
-            );
-
-            // Добавляем условие в запрос
-            criteriaQuery.where(predicate);
-
-            // Выполняем запрос и получаем результат
-            return entityManager.createQuery(criteriaQuery).getResultList();
+            switch(type) {
+                case "bus" -> response.add(busRepo.findAll());
+                case "plane" -> response.add(planeRepo.findAll());
+                case "fettlingMachine" -> response.add(fettlingMachineRepo.findAll());
+            }
         }
+
+        return response;
     }
 }
