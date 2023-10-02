@@ -41,8 +41,8 @@ public class PersonDB implements CommandLineRunner {
             pilot.setAge("1.8.1975");
             pilot.setPilotLycense("322");
             pilot.setGender(genderRepo.findByGender("Мужской"));
-            pilot.setFirstName("Nataliya");
-            pilot.setSecondName("Shevcova");
+            pilot.setFirstName("Vladzimir");
+            pilot.setSecondName("Kukovich");
             pilotRepo.save(pilot);
         }
         if (stewardessRepo.count() == 0) {
@@ -50,8 +50,8 @@ public class PersonDB implements CommandLineRunner {
             stewardess.setAge("16.7.2003");
             stewardess.setLanguages(new String[]{"Английский","Русский"});
             stewardess.setGender(genderRepo.findByGender("Женский"));
-            stewardess.setFirstName("Andrei");
-            stewardess.setSecondName("Kernazh");
+            stewardess.setFirstName("Nataliya");
+            stewardess.setSecondName("Shevcova");
             stewardessRepo.save(stewardess);
         }
     }

@@ -53,6 +53,19 @@ const AddPersonPage: FC = () => {
         }, special, job);
     }
 
+    function ProfParam(s:string) {
+        switch (s){
+            case "Пилот":
+                setSpecial(null);
+                break;
+            case "Водитель":
+                setSpecial(null);
+                break;
+            case "Стюардесса":
+                setSpecial([]);
+                break;
+        }
+    }
 
     return (
         <div className={styles.con}>
@@ -60,12 +73,12 @@ const AddPersonPage: FC = () => {
             <FirstInput placeholder={"Фамилия"} {...InputCss} onChange={setSurname}/>
 
             <FirstSelect placeholder={"Выберите пол"} variables={genderArray} {...SelectCSS}
-                         selector={setGender}/>
+                         selector={setGender} onChangeValue={ProfParam}/>
 
             <DataPickerNewPerson {...DataPickerCss} setAge={setAge}/>
 
             <FirstSelect placeholder={"Выберите профессию"}
-                         variables={jobArray} {...SelectCSS} selector={setJob}/>
+                         variables={jobArray} {...SelectCSS} selector={setJob} onChangeValue={ProfParam}/>
 
             {
                 job === jobArray[0] ?
@@ -77,7 +90,7 @@ const AddPersonPage: FC = () => {
                         </>)
                         : job === jobArray[2] ? (<>
                                 <ArrayInput array={languagesArray} placeholder={"Выберете языки"} {...LanguagesCSS}
-                                            setChoosenJobs={setSpecial}/>
+                                            setChoosenJobs={setSpecial} choosenLanguages={special}/>
                             </>)
                             : null
             }
