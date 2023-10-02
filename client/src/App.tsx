@@ -12,7 +12,7 @@ function App() {
             <Router>
                 <Routes>
                     <Route path="/addPerson" element={<AddPersonPage/>}/>
-                        <Route path="*" element={<MenuPage/>}/>
+                    <Route path="*" element={<MenuPage/>}/>
                 </Routes>
             </Router>
         </Shedule>

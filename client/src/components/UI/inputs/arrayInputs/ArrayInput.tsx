@@ -7,6 +7,8 @@ interface Props {
     placeholder: string;
     margin: string;
 
+    choosenLanguages: string[];
+
     setChoosenJobs(a: any): void;
 }
 
@@ -16,20 +18,23 @@ interface Jobs {
 
 }
 
-const ArrayInput: FC<Props> = ({array, placeholder, margin, setChoosenJobs}) => {
+const ArrayInput: FC<Props> = ({array, placeholder, margin, setChoosenJobs, choosenLanguages}) => {
 
         const [isActive, setActive] = useState<boolean>(false);
 
         const initialJobsState = array.map(language => ({
             language,
-            isChoosen: false,
+            isChoosen: choosenLanguages.includes(language) ? true : false,
         }));
 
         const [jobs, setJobs] = useState<Jobs[]>(initialJobsState);
 
 
         function handleClick() {
-            console.log("click")
+            console.log("click");
+
+            console.log(choosenLanguages)
+            setJobs(initialJobsState);
             setActive(true);
         }
 
@@ -43,7 +48,7 @@ const ArrayInput: FC<Props> = ({array, placeholder, margin, setChoosenJobs}) => 
             newJobs[index].isChoosen = !newJobs[index].isChoosen;
             setJobs(newJobs);
 
-            const fieldNames = jobs.filter((job) => job.isChoosen).map(job => ( job.language));
+            const fieldNames = jobs.filter((job) => job.isChoosen).map(job => (job.language));
             setChoosenJobs(fieldNames);
         }
 
@@ -62,6 +67,7 @@ const ArrayInput: FC<Props> = ({array, placeholder, margin, setChoosenJobs}) => 
                         {
                             jobs.map((lang: Jobs, index: number) =>
                                 <>
+
                                     <STCheckBox width={"15px"} widthArrow={"13px"} click={() => setCheck(index)}/>
                                     <div>{lang.language}</div>
                                 </>
