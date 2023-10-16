@@ -1,7 +1,6 @@
 package com.example.server.services;
 
 
-import com.example.server.DTO.person.AllPersons;
 import com.example.server.models.persons.Driver;
 import com.example.server.models.persons.Pilot;
 import com.example.server.models.persons.Stewardess;
@@ -39,7 +38,7 @@ public class PersonService {
         stewardessRepo.save(p);
     }
 
-    public List<List<?>> getList(String job, String fields) {
+    public List<List<?>> getList(String job) {
         response = new ArrayList<>();
         if (job.equals("all")) {
             response.add(driverRepo.findAll());

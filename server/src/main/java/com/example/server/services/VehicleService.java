@@ -42,6 +42,7 @@ public class VehicleService {
                 case "bus" -> response.add(busRepo.findAll());
                 case "plane" -> response.add(planeRepo.findAll());
                 case "fettlingMachine" -> response.add(fettlingMachineRepo.findAll());
+                default -> throw new IllegalStateException("Unexpected type of vehicle: " + type);
             }
         }
 

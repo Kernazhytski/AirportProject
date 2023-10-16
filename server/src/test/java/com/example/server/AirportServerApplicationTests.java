@@ -30,7 +30,7 @@ public class AirportServerApplicationTests {
     @Test
     public void getDriverTest() {
         Driver expectedDriver = new Driver(9L, "Andrei", "Kernazh", "16.7.2003", new Gender("Мужской"), "123");
-        List<List<?>> actualPersons = personService.getList("driver", "");
+        List<List<?>> actualPersons = personService.getList("driver");
 
         List<?> drivers = actualPersons.get(0);
         for(Object driver:drivers){
@@ -39,14 +39,14 @@ public class AirportServerApplicationTests {
             }
         }
 
-        System.out.println(personService.getList("driver", ""));
+        System.out.println(personService.getList("driver"));
     }
 
     @Test
     public void getPilotTest() {
         Pilot expectedPilot = new Pilot(10L, "Nataliya", "Shevcova", "1.8.1975", new Gender("Мужской"), "322");
 
-        List<List<?>> actualPersons = personService.getList("pilot", "");
+        List<List<?>> actualPersons = personService.getList("pilot");
 
         List<?> pilots = actualPersons.get(0);
         for(Object pilot:pilots){
@@ -55,13 +55,13 @@ public class AirportServerApplicationTests {
             }
         }
 
-        System.out.println(personService.getList("pilot", ""));
+        System.out.println(personService.getList("pilot"));
     }
     @Test
     public void getStewardess() {
         Stewardess expectedStewardess = new Stewardess(11L, "Andrei", "Kernazh", "16.7.2003", new Gender("Женский"));
 
-        List<List<?>> actualPersons = personService.getList("stewardess", "");
+        List<List<?>> actualPersons = personService.getList("stewardess");
 
         List<?> stewardesses = actualPersons.get(0);
         for(Object stewardess: stewardesses) {
