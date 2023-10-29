@@ -4,11 +4,13 @@ import com.example.server.models.Gender;
 import com.example.server.models.vehicles.Vehicle;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.Accessors;
 
 
 @Entity
 @Getter
 @Setter
+@Accessors(chain = true)
 public abstract class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "table-generator")
