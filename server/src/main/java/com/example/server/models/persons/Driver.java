@@ -3,6 +3,7 @@ package com.example.server.models.persons;
 import com.example.server.models.Gender;
 import jakarta.persistence.Entity;
 import lombok.*;
+import lombok.experimental.Accessors;
 
 import java.util.Objects;
 
@@ -10,6 +11,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @RequiredArgsConstructor
+@Accessors(chain = true)
 @ToString
 public class Driver extends Person {
     @NonNull

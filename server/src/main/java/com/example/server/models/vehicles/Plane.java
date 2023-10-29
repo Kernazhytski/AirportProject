@@ -3,6 +3,7 @@ package com.example.server.models.vehicles;
 import jakarta.persistence.Entity;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
+import lombok.experimental.Accessors;
 
 import java.util.Objects;
 
@@ -10,6 +11,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @NoArgsConstructor
+@Accessors(chain = true)
 @ToString
 public class Plane extends Vehicle {
 

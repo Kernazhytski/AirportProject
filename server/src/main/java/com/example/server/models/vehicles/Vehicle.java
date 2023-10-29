@@ -2,10 +2,12 @@ package com.example.server.models.vehicles;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.Accessors;
 
 @Entity
 @Getter
 @Setter
+@Accessors(chain=true)
 public abstract class Vehicle {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "table-generator")

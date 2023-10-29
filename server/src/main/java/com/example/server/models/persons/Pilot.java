@@ -3,6 +3,7 @@ package com.example.server.models.persons;
 import com.example.server.models.Gender;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.Accessors;
 
 import java.util.Objects;
 
@@ -11,6 +12,7 @@ import java.util.Objects;
 @Setter
 @NoArgsConstructor
 @RequiredArgsConstructor
+@Accessors(chain=true)
 @ToString
 public class Pilot extends Person {
 
