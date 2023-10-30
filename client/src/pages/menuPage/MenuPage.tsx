@@ -11,7 +11,6 @@ const MenuPage: FC = () => {
 
     function relocate (location:string):void {
         loc(location)
-        console.log("KEKKE")
     }
 
     return (
@@ -19,7 +18,7 @@ const MenuPage: FC = () => {
             <div className={style.con2}>
                 <div className={style.butCon}>
                     <LightButton onClick={() => relocate("/addPerson")}>Добавить рабочего</LightButton>
-                    <LightButton>Добавить технику</LightButton>
+                    <LightButton onClick={() => relocate("/addVehicle")}>Добавить технику</LightButton>
                     <LightButton>Список рабочих</LightButton>
                     <LightButton>Список техники</LightButton>
                 </div>

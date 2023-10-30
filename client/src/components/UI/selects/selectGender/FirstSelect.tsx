@@ -9,7 +9,7 @@ interface ISelect {
     variables: string[];
     margin:string;
     selector:(s:string)=>void;
-    onChangeValue(s:string):void;
+    onChangeValue?(s:string):void;
 }
 
 
@@ -18,7 +18,9 @@ const FirstSelect: FC<ISelect> = ({placeholder, variables,margin,selector, onCha
 
     const handleSelectChange = (event: ChangeEvent<HTMLSelectElement>) => {
         selector(event.target.value);
-        onChangeValue(event.target.value);
+        if (onChangeValue) {
+            onChangeValue(event.target.value);
+        }
     };
 
     return (

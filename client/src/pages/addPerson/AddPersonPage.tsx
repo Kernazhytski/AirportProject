@@ -6,9 +6,18 @@ import FirstInput from "../../components/UI/inputs/firstInput/FirstInput";
 import OutlinedButton from "../../components/UI/Buttons/outlinedButton/OutlinedButton";
 import ArrayInput from "../../components/UI/inputs/arrayInputs/ArrayInput";
 import {PersonService} from "../../services/PersonService";
+import {useNavigate} from "react-router-dom";
 
 
 const AddPersonPage: FC = () => {
+
+    let loc = useNavigate();
+
+    function relocate(location: string): void {
+        loc(location)
+    }
+
+    const [flag, setFlag] = useState<boolean>(false);
 
     const [firstName, setName] = useState<string | null>(null);
     const [secondName, setSurname] = useState<string | null>(null);
@@ -44,17 +53,22 @@ const AddPersonPage: FC = () => {
 
     async function clickButton() {
         const date = new Date(age?.$d);
-        console.log(date.getDate().toString() + "." + date.getMonth().toString() + "." + date.getFullYear().toString())
-        await PersonService.createPerson({
-            firstName,
-            secondName,
-            age: date.getDate().toString() + "." + date.getMonth().toString() + "." + date.getFullYear().toString(),
-            gender
-        }, special, job);
+        if (firstName && secondName && gender && age && job && special) {
+            await PersonService.createPerson({
+                firstName,
+                secondName,
+                age: date.getDate().toString() + "." + date.getMonth().toString() + "." + date.getFullYear().toString(),
+                gender
+            }, special, job);
+            setFlag(false);
+            relocate('/')
+        } else {
+            setFlag(true);
+        }
     }
 
-    function ProfParam(s:string) {
-        switch (s){
+    function ProfParam(s: string) {
+        switch (s) {
             case "Пилот":
                 setSpecial(null);
                 break;
@@ -65,6 +79,11 @@ const AddPersonPage: FC = () => {
                 setSpecial([]);
                 break;
         }
+    }
+
+    async function clickButtonBack() {
+        setFlag(false);
+        relocate('/')
     }
 
     return (
@@ -94,8 +113,11 @@ const AddPersonPage: FC = () => {
                             </>)
                             : null
             }
-
-            <div style={{display: "flex", alignItems: "center", justifyContent: "center", marginTop: "30px"}}>
+            {flag &&
+                <p style={{color: 'red'}}>Заполните все поля</p>
+            }
+            <div style={{display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: "30px"}}>
+                <OutlinedButton onClick={clickButtonBack}>Отмена</OutlinedButton>
                 <OutlinedButton onClick={clickButton}>Добавить работягу</OutlinedButton>
             </div>
 
