@@ -32,7 +32,8 @@ public class Plane extends Vehicle {
         if (this == o) return true;
         if (o == null || this.getClass() != o.getClass()) return false;
         Plane plane = (Plane) o;
-        return id == plane.id &&
+        //return id == plane.id &&
+        return (id == plane.id) || id == null &&
                 type.equals(plane.type) &&
                 model.equals(plane.model) &&
                 number.equals(plane.number) &&
