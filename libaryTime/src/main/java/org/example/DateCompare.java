@@ -1,5 +1,5 @@
 package org.example;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * Hello world!
@@ -7,18 +7,8 @@ import java.time.LocalDate;
  */
 public class DateCompare
 {
-    public static int compare(LocalDate date1, LocalDate date2){
-
-        // Получить текущую дату
-        LocalDate currentDate = LocalDate.now();
-        if(date1.compareTo(currentDate)>0){
-            return -1;
-        }
-        else if(date2.compareTo(currentDate)>=0){
-            return 0;
-        }
-        else{
-            return 1;
-        }
+    public static boolean compareDates(LocalDateTime[] date1, LocalDateTime[] date2){
+        // date[0] - время отправления, date[1] - время прилета
+        return (date2[0].isBefore(date1[1])) && (date2[1].isAfter(date1[0]));
     }
 }

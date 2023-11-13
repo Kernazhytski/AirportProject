@@ -28,18 +28,31 @@ public class VehicleService {
     private FettlingMachineRepo fettlingMachineRepo;
 
     public void addBus(BusRequestDTO busRequestDTO) {
-        Bus bus = buildBusRequest(busRequestDTO);
-        busRepo.save(bus);
+        if(busRequestDTO.getNumber().matches("^\\d{4}[A-Z]{2}-[0-7]$")){
+            Bus bus = buildBusRequest(busRequestDTO);
+            busRepo.save(bus);
+        } else {
+            throw new IllegalStateException("Invalid number format for bus.");
+        }
     }
 
     public void addPlane(PlaneRequestDTO planeRequestDTO) {
-        Plane plane = buildPlaneRequest(planeRequestDTO);
-        planeRepo.save(plane);
+        if(planeRequestDTO.getNumber().matches("^[A-Z]{1,3}-[0-9]{1,3}$")) {
+            Plane plane = buildPlaneRequest(planeRequestDTO);
+            planeRepo.save(plane);
+        } else {
+            throw new IllegalStateException("Invalid number format for plane.");
+        }
+
     }
 
     public void addFettlingMachine(FettlingMachineRequestDTO fettlingMachineRequestDTO) {
-        FettlingMachine fettlingMachine = buildFettlingMachineRequest(fettlingMachineRequestDTO);
-        fettlingMachineRepo.save(fettlingMachine);
+        if(fettlingMachineRequestDTO.getNumber().matches("^\\d{4}[A-Z]{2}-[0-7]$")){
+            FettlingMachine fettlingMachine = buildFettlingMachineRequest(fettlingMachineRequestDTO);
+            fettlingMachineRepo.save(fettlingMachine);
+        } else {
+            throw new IllegalStateException("Invalid number format for fettling machine.");
+        }
     }
 
     public List<List<?>> getList(String type) {

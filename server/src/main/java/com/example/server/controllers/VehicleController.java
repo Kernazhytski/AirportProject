@@ -22,21 +22,36 @@ public class VehicleController {
 
     @PostMapping("/addBus")
     public ResponseEntity<?> add(@RequestBody BusRequestDTO requestDTO) {
-        vehicleService.addBus(requestDTO);
+        try {
+            vehicleService.addBus(requestDTO);
+        } catch(IllegalStateException e) {
+            LOGGER.error(e.getMessage());
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
         LOGGER.info("Added new bus: " + requestDTO.toString());
         return new ResponseEntity<>("New Bus is added", HttpStatus.CREATED);
     }
 
     @PostMapping("/addPlane")
     public ResponseEntity<?> add(@RequestBody PlaneRequestDTO requestDTO) {
-        vehicleService.addPlane(requestDTO);
+        try {
+            vehicleService.addPlane(requestDTO);
+        } catch(IllegalStateException e) {
+            LOGGER.error(e.getMessage());
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
         LOGGER.info("Added new plane: " + requestDTO.toString());
         return new ResponseEntity<>("New Plane is added", HttpStatus.CREATED);
     }
 
     @PostMapping("/addFettlingMachine")
     public ResponseEntity<?> add(@RequestBody FettlingMachineRequestDTO requestDTO) {
-        vehicleService.addFettlingMachine(requestDTO);
+        try {
+            vehicleService.addFettlingMachine(requestDTO);
+        } catch(IllegalStateException e) {
+            LOGGER.error(e.getMessage());
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
         LOGGER.info("Added new fettlingMachine: " + requestDTO.toString());
         return new ResponseEntity<>("New FettlingMahine is added", HttpStatus.CREATED);
     }
