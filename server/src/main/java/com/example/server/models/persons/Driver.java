@@ -48,4 +48,8 @@ public class Driver extends Person {
         return Objects.hash(id, firstName, secondName, age, driverLycense);
     }
 
+    @Override
+    public boolean canWorkWith(String type) {
+        return type.equals("bus") || type.equals("fettlingMachine");
+    }
 }

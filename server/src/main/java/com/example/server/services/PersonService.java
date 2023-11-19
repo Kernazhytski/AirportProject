@@ -6,6 +6,7 @@ import com.example.server.DTO.vehicles.VehicleRequestDTO;
 import com.example.server.DTO.vehicles.VehicleResponseDTO;
 import com.example.server.models.Gender;
 import com.example.server.models.persons.Driver;
+import com.example.server.models.persons.Person;
 import com.example.server.models.persons.Pilot;
 import com.example.server.models.persons.Stewardess;
 import com.example.server.models.vehicles.Bus;
@@ -15,8 +16,10 @@ import com.example.server.models.vehicles.Vehicle;
 import com.example.server.repo.DriverRepo;
 import com.example.server.repo.PilotRepo;
 import com.example.server.repo.StewardessRepo;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +51,37 @@ public class PersonService {
     public void addStewardess(StewardessRequestDTO stewardessRequestDTO) {
         Stewardess stewardess = buildStewardessRequest(stewardessRequestDTO);
         stewardessRepo.save(stewardess);
+    }
+
+    @Transactional
+    public void  assignWorkerToVehicle(Person person, Vehicle vehicle) {
+        if(!person.canWorkWith(vehicle.getType())) {
+            throw new IllegalArgumentException("Person cannot work with this type of vehicle");
+        }
+
+        if(person.getVehicle() != null) {
+            throw new IllegalStateException("Person is already working on another vehicle");
+        }
+
+        person.setVehicle(vehicle);
+
+        if(person instanceof Pilot) {
+            pilotRepo.save((Pilot) person);
+        } else if(person instanceof Driver) {
+            driverRepo.save((Driver) person);
+        } else if(person instanceof Stewardess) {
+            stewardessRepo.save((Stewardess) person);
+        }
+    }
+
+    public Person getPersonById(String type, Long id) {
+        return switch (type) {
+            case "pilot" -> pilotRepo.findById(id).orElseThrow(() -> new EntityNotFoundException("bus not found"));
+            case "driver" -> driverRepo.findById(id).orElseThrow(() -> new EntityNotFoundException("plane not found"));
+            case "stewardess" ->
+                    stewardessRepo.findById(id).orElseThrow(() -> new EntityNotFoundException("fettlingMachine not found"));
+            default -> null;
+        };
     }
 
     public List<List<?>> getList(String job) {

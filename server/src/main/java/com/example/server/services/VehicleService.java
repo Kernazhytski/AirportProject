@@ -4,9 +4,11 @@ import com.example.server.DTO.vehicles.*;
 import com.example.server.models.vehicles.Bus;
 import com.example.server.models.vehicles.FettlingMachine;
 import com.example.server.models.vehicles.Plane;
+import com.example.server.models.vehicles.Vehicle;
 import com.example.server.repo.BusRepo;
 import com.example.server.repo.FettlingMachineRepo;
 import com.example.server.repo.PlaneRepo;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -53,6 +55,16 @@ public class VehicleService {
         } else {
             throw new IllegalStateException("Invalid number format for fettling machine.");
         }
+    }
+
+    public Vehicle getVehicleById(String type, Integer id) {
+        return switch (type) {
+            case "bus" -> busRepo.findById(id).orElseThrow(() -> new EntityNotFoundException("bus not found"));
+            case "plane" -> planeRepo.findById(id).orElseThrow(() -> new EntityNotFoundException("plane not found"));
+            case "fettlingMachine" ->
+                    fettlingMachineRepo.findById(id).orElseThrow(() -> new EntityNotFoundException("fettlingMachine not found"));
+            default -> null;
+        };
     }
 
     public List<List<?>> getList(String type) {
