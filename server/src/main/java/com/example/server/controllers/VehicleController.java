@@ -3,7 +3,11 @@ package com.example.server.controllers;
 import com.example.server.DTO.vehicles.BusRequestDTO;
 import com.example.server.DTO.vehicles.FettlingMachineRequestDTO;
 import com.example.server.DTO.vehicles.PlaneRequestDTO;
+import com.example.server.models.persons.Person;
+import com.example.server.models.vehicles.Vehicle;
+import com.example.server.services.PersonService;
 import com.example.server.services.VehicleService;
+import jakarta.persistence.EntityNotFoundException;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +22,10 @@ public class VehicleController {
 
     @Autowired
     private VehicleService vehicleService;
+
+    @Autowired
+    private PersonService personService;
+
     private static final Logger LOGGER = Logger.getLogger(VehicleController.class);
 
     @PostMapping("/addBus")
@@ -60,5 +68,29 @@ public class VehicleController {
     public ResponseEntity<?> getListAll(@RequestParam(value = "type",defaultValue = "all") String type) {
         LOGGER.info("Getting a list of vehicles.");
         return new ResponseEntity<>(vehicleService.getList(type), HttpStatus.OK);
+    }
+
+    @PostMapping("/assignPerson")
+    public ResponseEntity<?>  assignPersonToVehicle(@RequestParam Long personId, @RequestParam String personType,
+                                                    @RequestParam Integer vehicleId, @RequestParam String vehicleType) {
+        Person person;
+        Vehicle vehicle;
+        try {
+            person = personService.getPersonById(personType, personId);
+            vehicle = vehicleService.getVehicleById(vehicleType, vehicleId);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+
+        try {
+            personService.assignWorkerToVehicle(person, vehicle);
+            return new ResponseEntity<>("Person assigned to vehicle successfully", HttpStatus.OK);
+        }  catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        } catch (IllegalStateException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

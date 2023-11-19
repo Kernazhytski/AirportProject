@@ -37,4 +37,5 @@ public abstract class Person {
     @JoinColumn(name = "vehicle_id")
     protected Vehicle vehicle;
 
+    public abstract boolean canWorkWith(String type);
 }

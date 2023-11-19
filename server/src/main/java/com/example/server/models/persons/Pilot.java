@@ -46,4 +46,9 @@ public class Pilot extends Person {
     public int hashCode() {
         return Objects.hash(id, firstName, secondName, age, pilotLycense);
     }
+
+    @Override
+    public boolean canWorkWith(String type) {
+        return type.equals("plane");
+    }
 }

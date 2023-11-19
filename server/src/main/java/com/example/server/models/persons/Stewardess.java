@@ -43,4 +43,9 @@ public class Stewardess extends Person {
     public int hashCode() {
         return Objects.hash(id, firstName, secondName, age);
     }
+
+    @Override
+    public boolean canWorkWith(String type) {
+        return type.equals("plane");
+    }
 }
