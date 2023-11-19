@@ -1,18 +1,19 @@
-import {IPersonNew} from "../entities/PersonEntity";
 import {$api} from "../http/api";
 import {IVehicleNew} from "../entities/VehicleEntity";
 
 export class VehicleService{
     static async createVehicle(vehicle:IVehicleNew, vehicleType: string){
+        console.log(vehicleType)
         switch (vehicleType) {
-            case "Самолёт":
-                $api.post('/vehicle/addPlane',{...vehicle})
+            case "Самолет":
+                console.log('jnghfdr')
+                await $api.post('/vehicle/addPlane',{...vehicle, type: 'Plane'})
                 break;
             case "Автобус":
-                $api.post('/vehicle/addBus',{...vehicle})
+                await $api.post('/vehicle/addBus',{...vehicle, type: 'Bus'})
                 break;
             case "Автозаправщик":
-                $api.post('/vehicle/addFettlingMachine',{...vehicle})
+                await $api.post('/vehicle/addFettlingMachine',{...vehicle, type: 'FettilingMachine'})
                 break;
         }
     }

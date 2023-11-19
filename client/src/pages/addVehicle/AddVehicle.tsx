@@ -23,6 +23,7 @@ const AddVehicle = () => {
     const [vehicleType, setVehicleType] = useState("Самолет")
     const [crews, setCrews] = useState<number>(0);
     const [passangers, setPassangers] = useState<number>(0);
+    const [fuel, setFuel] = useState<number>(0);
 
     const InputCss = {
         border: "1px solid black",
@@ -40,12 +41,19 @@ const AddVehicle = () => {
     const vehicleArray = ["Самолет", "Автобус", "Автозаправщик"];
 
     async function clickButton() {
-        if (number && model && vehicleType && crews && passangers) {
+        console.log(passangers)
+        if (number !== undefined &&
+            model !== undefined &&
+            vehicleType !== undefined &&
+            crews !== undefined &&
+            passangers !== undefined &&
+            fuel !== undefined) {
             await VehicleService.createVehicle({
                 crews: crews,
                 model: model,
                 number: number,
-                passengers: passangers
+                passengers: passangers,
+                fuelVolume: fuel
             }, vehicleType)
             setFlag(false);
             relocate('/');
@@ -68,16 +76,27 @@ const AddVehicle = () => {
                          variables={vehicleArray} {...SelectCSS} selector={setVehicleType}/>
 
             <div style={{display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: "30px"}}>
-                <NumberInput placeholder={'Экипаж'} value={crews} onChange={setCrews} disabled={false}/>
-                <NumberInput placeholder={'Пассажиры'} value={passangers} onChange={setPassangers}
-                             disabled={vehicleType === "Автозаправщик"}/>
+                <div style={{width: "100%"}}>
+                    <p>Экипаж</p>
+                    <NumberInput placeholder={'Экипаж'} value={crews} onChange={setCrews} disabled={false}/>
+                </div>
+                <div style={{width: "100%"}}>
+                    <p>Пассажиры</p>
+                    <NumberInput placeholder={'Пассажиры'} value={passangers} onChange={setPassangers}
+                                 disabled={vehicleType === "Автозаправщик"}/>
+                </div>
+                <div style={{width: "100%"}}>
+                    <p>Объем топлива</p>
+                    <NumberInput placeholder={'Объем топлива'} value={fuel} onChange={setFuel}
+                                 disabled={vehicleType !== "Автозаправщик"}/>
+                </div>
             </div>
             {flag &&
                 <p style={{color: 'red'}}>Заполните все поля</p>
             }
             <div style={{display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: "30px"}}>
                 <OutlinedButton onClick={clickButtonBack}>Отмена</OutlinedButton>
-                <OutlinedButton onClick={clickButton}>Добавить работягу</OutlinedButton>
+                <OutlinedButton onClick={clickButton}>Добавить технику</OutlinedButton>
             </div>
 
         </div>

@@ -1,0 +1,2 @@
+2023-10-16 08:57:42 INFO  PersonController:26 - Added new pilot: Pilot(pilotLycense=AB322)
+2023-10-16 09:00:01 INFO  PersonController:40 - Added new stewardess: Stewardess(languages=[])

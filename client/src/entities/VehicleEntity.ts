@@ -7,4 +7,5 @@ export interface IVehicleNew {
     number:string;
     crews:number;
     passengers:number;
+    fuelVolume: number;
 }
