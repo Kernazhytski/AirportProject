@@ -17,4 +17,8 @@ export class VehicleService{
                 break;
         }
     }
+
+    static async getVehicle(type: string) {
+        return $api.get('/vehicle/list', {params: {type: type}}).then()
+    }
 }

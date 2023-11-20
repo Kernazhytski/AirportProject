@@ -3,12 +3,9 @@
     height:500px;
     background: #77A6F7;
     border-radius: 10px;
-}
-
-.con2{
-    width: 250px;
-    height: 100%;
-    display: inline-block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .butCon{
