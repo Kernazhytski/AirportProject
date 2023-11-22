@@ -13,9 +13,7 @@ import com.example.server.models.vehicles.Bus;
 import com.example.server.models.vehicles.FettlingMachine;
 import com.example.server.models.vehicles.Plane;
 import com.example.server.models.vehicles.Vehicle;
-import com.example.server.repo.DriverRepo;
-import com.example.server.repo.PilotRepo;
-import com.example.server.repo.StewardessRepo;
+import com.example.server.repo.*;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,6 +35,15 @@ public class PersonService {
 
     @Autowired
     private StewardessRepo stewardessRepo;
+
+    @Autowired
+    private BusRepo busRepo;
+
+    @Autowired
+    private PlaneRepo planeRepo;
+
+    @Autowired
+    private FettlingMachineRepo fettlingMachineRepo;
 
     public void addPilot(PilotRequestDTO pilotRequestDTO) {
         Pilot pilot = buildPilotRequest(pilotRequestDTO);
@@ -63,7 +70,19 @@ public class PersonService {
             throw new IllegalStateException("Person is already working on another vehicle");
         }
 
+        if(!vehicle.hasSpaceInCrew()) {
+            throw new IllegalStateException("Vehicle crews is already full");
+        }
         person.setVehicle(vehicle);
+        vehicle.setCrews(vehicle.getCrews() + 1);
+
+        if(vehicle instanceof Bus) {
+            busRepo.save((Bus) vehicle);
+        } else if(vehicle instanceof Plane) {
+            planeRepo.save((Plane) vehicle);
+        } else if(vehicle instanceof FettlingMachine) {
+            fettlingMachineRepo.save((FettlingMachine) vehicle);
+        }
 
         if(person instanceof Pilot) {
             pilotRepo.save((Pilot) person);
@@ -133,7 +152,7 @@ public class PersonService {
                         .setGender(driver.getGender().getGender()))
                 .setDriverLycense(driver.getDriverLycense())
                 .setVehicleResponseDTO(driver.getVehicle() == null ? null : new VehicleResponseDTO()
-                        .setId(driver.getVehicle().getId())
+                        .setCrews(driver.getVehicle().getCrews())
                         .setType(driver.getVehicle().getType())
                         .setModel(driver.getVehicle().getModel())
                         .setNumber(driver.getVehicle().getNumber()));
@@ -143,22 +162,27 @@ public class PersonService {
         VehicleRequestDTO vehicleRequestDTO = requestDTO.getBusRequestDTO() == null ? requestDTO.getFettlingMachineRequestDTO(): requestDTO.getBusRequestDTO();
         Vehicle vehicle = null;
 
-        switch (vehicleRequestDTO.getType()) {
-            case "bus" -> vehicle = new Bus()
-                    .setPassengers(requestDTO.getBusRequestDTO().getPassengers())
-                    .setType(vehicleRequestDTO.getType())
-                    .setModel(vehicleRequestDTO.getModel())
-                    .setNumber(vehicleRequestDTO.getNumber())
-                    .setCrews(vehicleRequestDTO.getCrews());
-            case "fettlingMachine" -> vehicle = new FettlingMachine()
-                    .setFuelVolume(requestDTO.getFettlingMachineRequestDTO().getFuelVolume())
-                    .setType(vehicleRequestDTO.getType())
-                    .setModel(vehicleRequestDTO.getModel())
-                    .setNumber(vehicleRequestDTO.getNumber())
-                    .setCrews(vehicleRequestDTO.getCrews());
+        if(vehicleRequestDTO == null) {
+            vehicle = null;
+        } else {
+            switch (vehicleRequestDTO.getType()) {
+                case "bus" -> vehicle = new Bus()
+                        .setPassengers(requestDTO.getBusRequestDTO().getPassengers())
+                        .setType(vehicleRequestDTO.getType())
+                        .setModel(vehicleRequestDTO.getModel())
+                        .setNumber(vehicleRequestDTO.getNumber())
+                        .setMaxCrewSize(vehicleRequestDTO.getMaxCrewSize());
+                case "fettlingMachine" -> vehicle = new FettlingMachine()
+                        .setFuelVolume(requestDTO.getFettlingMachineRequestDTO().getFuelVolume())
+                        .setType(vehicleRequestDTO.getType())
+                        .setModel(vehicleRequestDTO.getModel())
+                        .setNumber(vehicleRequestDTO.getNumber())
+                        .setMaxCrewSize(vehicleRequestDTO.getMaxCrewSize());
+            }
         }
 
         return (Driver) new Driver()
+                .setDriverLycense(requestDTO.getDriverLycense())
                 .setFirstName(requestDTO.getFirstName())
                 .setSecondName(requestDTO.getSecondName())
                 .setAge(requestDTO.getAge())
@@ -177,7 +201,7 @@ public class PersonService {
                         .setGender(pilot.getGender().getGender()))
                 .setPilotLycense(pilot.getPilotLycense())
                 .setVehicleResponseDTO(pilot.getVehicle() == null ? null : new VehicleResponseDTO()
-                        .setId(pilot.getVehicle().getId())
+                        .setCrews(pilot.getVehicle().getCrews())
                         .setType(pilot.getVehicle().getType())
                         .setModel(pilot.getVehicle().getModel())
                         .setNumber(pilot.getVehicle().getNumber()));
@@ -185,6 +209,7 @@ public class PersonService {
 
     private Pilot buildPilotRequest(PilotRequestDTO requestDTO) {
         return (Pilot) new Pilot()
+                .setPilotLycense(requestDTO.getPilotLycense())
                 .setFirstName(requestDTO.getFirstName())
                 .setSecondName(requestDTO.getSecondName())
                 .setAge(requestDTO.getAge())
@@ -195,7 +220,7 @@ public class PersonService {
                         .setType(requestDTO.getPlaneRequestDTO().getType())
                         .setModel(requestDTO.getPlaneRequestDTO().getModel())
                         .setNumber(requestDTO.getPlaneRequestDTO().getNumber())
-                        .setCrews(requestDTO.getPlaneRequestDTO().getCrews()));
+                        .setMaxCrewSize(requestDTO.getPlaneRequestDTO().getMaxCrewSize()));
     }
 
     private StewardessResponseDTO buildStewardessResponse(Stewardess stewardess) {

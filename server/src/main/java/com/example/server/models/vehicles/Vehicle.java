@@ -25,6 +25,12 @@ public abstract class Vehicle {
     protected String number;
     @NonNull
     @Column(nullable = false)
+    protected int maxCrewSize;
+
     protected int crews;
+
+    public boolean hasSpaceInCrew() {
+        return crews < maxCrewSize;
+    }
 }
 

@@ -36,7 +36,7 @@ public class VehicleController {
             LOGGER.error(e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
-        LOGGER.info("Added new bus: " + requestDTO.toString());
+        LOGGER.info("Added new bus: " + requestDTO);
         return new ResponseEntity<>("New Bus is added", HttpStatus.CREATED);
     }
 
@@ -48,7 +48,7 @@ public class VehicleController {
             LOGGER.error(e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
-        LOGGER.info("Added new plane: " + requestDTO.toString());
+        LOGGER.info("Added new plane: " + requestDTO);
         return new ResponseEntity<>("New Plane is added", HttpStatus.CREATED);
     }
 
@@ -60,7 +60,7 @@ public class VehicleController {
             LOGGER.error(e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
-        LOGGER.info("Added new fettlingMachine: " + requestDTO.toString());
+        LOGGER.info("Added new fettlingMachine: " + requestDTO);
         return new ResponseEntity<>("New FettlingMahine is added", HttpStatus.CREATED);
     }
 
@@ -71,8 +71,8 @@ public class VehicleController {
     }
 
     @PostMapping("/assignPerson")
-    public ResponseEntity<?>  assignPersonToVehicle(@RequestParam Long personId, @RequestParam String personType,
-                                                    @RequestParam Integer vehicleId, @RequestParam String vehicleType) {
+    public ResponseEntity<?> assignPersonToVehicle(@RequestParam Long personId, @RequestParam String personType,
+                                                   @RequestParam Integer vehicleId, @RequestParam String vehicleType) {
         Person person;
         Vehicle vehicle;
         try {

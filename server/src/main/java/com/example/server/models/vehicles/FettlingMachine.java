@@ -23,7 +23,8 @@ public class FettlingMachine extends Vehicle {
         this.type = type;
         this.model = model;
         this.number = number;
-        this.crews = crews;
+        this.crews = 0;
+        this.maxCrewSize = crews;
         this.fuelVolume = fuelVolume;
     }
 
