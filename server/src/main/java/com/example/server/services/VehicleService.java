@@ -110,7 +110,8 @@ public class VehicleService {
 
     private BusResponseDTO buildBusResponse(Bus bus) {
         return (BusResponseDTO) new BusResponseDTO()
-                .setId(bus.getId())
+                .setPassengers(bus.getPassengers())
+                .setCrews(bus.getCrews())
                 .setType(bus.getType())
                 .setModel(bus.getModel())
                 .setNumber(bus.getNumber());
@@ -122,12 +123,13 @@ public class VehicleService {
                 .setType(requestDTO.getType())
                 .setModel(requestDTO.getModel())
                 .setNumber(requestDTO.getNumber())
-                .setCrews(requestDTO.getCrews());
+                .setMaxCrewSize(requestDTO.getMaxCrewSize());
     }
 
     private PlaneResponseDTO buildPlaneResponse(Plane plane) {
         return (PlaneResponseDTO) new PlaneResponseDTO()
-                .setId(plane.getId())
+                .setPassengers(plane.getPassengers())
+                .setCrews(plane.getCrews())
                 .setType(plane.getType())
                 .setModel(plane.getModel())
                 .setNumber(plane.getNumber());
@@ -139,12 +141,13 @@ public class VehicleService {
                 .setType(requestDTO.getType())
                 .setModel(requestDTO.getModel())
                 .setNumber(requestDTO.getNumber())
-                .setCrews(requestDTO.getCrews());
+                .setMaxCrewSize(requestDTO.getMaxCrewSize());
     }
 
     private FettlingMachineResponseDTO buildFettlingMachineResponse(FettlingMachine fettlingMachine) {
         return (FettlingMachineResponseDTO) new FettlingMachineResponseDTO()
-                .setId(fettlingMachine.getId())
+                .setFuelVolume(fettlingMachine.getFuelVolume())
+                .setCrews(fettlingMachine.getCrews())
                 .setType(fettlingMachine.getType())
                 .setModel(fettlingMachine.getModel())
                 .setNumber(fettlingMachine.getNumber());
@@ -156,6 +159,6 @@ public class VehicleService {
                 .setType(requestDTO.getType())
                 .setModel(requestDTO.getModel())
                 .setNumber(requestDTO.getNumber())
-                .setCrews(requestDTO.getCrews());
+                .setMaxCrewSize(requestDTO.getMaxCrewSize());
     }
 }

@@ -32,9 +32,6 @@ public class Flight {
     private LocalDateTime arrivalTime;
     @NonNull
     @Column(nullable = false)
-    private Duration duration;
-    @NonNull
-    @Column(nullable = false)
     private String fromTown;
     @NonNull
     @Column(nullable = false)
@@ -48,12 +45,11 @@ public class Flight {
     private int planeId;
 
 
-    public Flight(Integer id, String flightNumber, LocalDateTime departureTime, LocalDateTime arrivalTime, Duration duration, String fromTown, String toTown) {
+    public Flight(Integer id, String flightNumber, LocalDateTime departureTime, LocalDateTime arrivalTime, String fromTown, String toTown) {
         this.id = id;
         this.flightNumber = flightNumber;
         this.departureTime = departureTime;
         this.arrivalTime = arrivalTime;
-        this.duration = duration;
         this.fromTown = fromTown;
         this.toTown = toTown;
     }
@@ -68,7 +64,6 @@ public class Flight {
                 ((flightNumber.equals(flight.flightNumber)) &&
                         (departureTime.equals(flight.departureTime)) &&
                         (arrivalTime.equals(flight.arrivalTime)) &&
-                        (duration.equals(flight.duration)) &&
                         (fromTown.equals(flight.fromTown)) &&
                         (toTown.equals(flight.toTown)));
     }
@@ -76,6 +71,6 @@ public class Flight {
     // Переопределение метода hashCode
     @Override
     public int hashCode() {
-        return Objects.hash(id, flightNumber, departureTime, arrivalTime, duration, fromTown, toTown);
+        return Objects.hash(id, flightNumber, departureTime, arrivalTime, fromTown, toTown);
     }
 }

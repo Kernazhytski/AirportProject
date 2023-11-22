@@ -9,5 +9,6 @@ public class VehicleRequestDTO {
     protected String type;
     protected String model;
     protected String number;
-    protected int crews;
+    protected int maxCrewSize;
+
 }

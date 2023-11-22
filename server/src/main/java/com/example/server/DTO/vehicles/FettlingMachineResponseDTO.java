@@ -6,8 +6,5 @@ import lombok.experimental.Accessors;
 @Data
 @Accessors(chain = true)
 public class FettlingMachineResponseDTO extends VehicleResponseDTO {
-    /*private Integer id;
-    private String type;
-    private String model;
-    private String number;*/
+    private int fuelVolume;
 }

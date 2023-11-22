@@ -79,7 +79,6 @@ public class FlightService {
                 .setFlightNumber(requestDTO.getFlightNumber())
                 .setDepartureTime(requestDTO.getDepartureTime())
                 .setArrivalTime(requestDTO.getArrivalTime())
-                .setDuration(requestDTO.getDuration())
                 .setFromTown(requestDTO.getFromTown())
                 .setToTown(requestDTO.getToTown())
                 .setFlightStatus(requestDTO.getFlightStatus())

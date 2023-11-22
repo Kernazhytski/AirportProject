@@ -12,7 +12,6 @@ public class FlightResponseDTO {
     private String flightNumber;
     private LocalDateTime departureTime;
     private LocalDateTime arrivalTime;
-    private Duration duration;
     private String fromTown;
     private String toTown;
     private String flightStatus;
