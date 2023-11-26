@@ -7,9 +7,12 @@ import OutlinedButton from "../../components/UI/Buttons/outlinedButton/OutlinedB
 import ArrayInput from "../../components/UI/inputs/arrayInputs/ArrayInput";
 import {PersonService} from "../../services/PersonService";
 import {useNavigate} from "react-router-dom";
+import {useTranslation} from 'react-i18next';
 
 
 const AddPersonPage: FC = () => {
+
+    const {t} = useTranslation();
 
     let loc = useNavigate();
 
@@ -21,8 +24,8 @@ const AddPersonPage: FC = () => {
 
     const [firstName, setName] = useState<string | null>(null);
     const [secondName, setSurname] = useState<string | null>(null);
-    const [gender, setGender] = useState<string>("Мужской");
-    const [job, setJob] = useState("Пилот")
+    const [gender, setGender] = useState<string>(t('genderM'));
+    const [job, setJob] = useState(t('jobPilot'))
     const [special, setSpecial] = useState<any>(null);
     const [age, setAge] = useState<any>(new Date('1990-01-01'));
 
@@ -45,21 +48,48 @@ const AddPersonPage: FC = () => {
         margin: "20px 0 0 0"
     }
 
-    const genderArray = ["Мужской", "Женский"]
+    const genderArray = [t('genderM'), t('genderF')];
 
-    const jobArray = ["Пилот", "Водитель", "Стюардесса"];
+    const jobArray = [t('jobPilot'), t('jobDriver'), t('jobStew')];
 
-    const languagesArray = ["Английский", "Испанский", "Русский"];
+    const languagesArray = [t('lanEng'), t('lanEsp'), t('lanRus')];
+
+    const genderMap = new Map<string, string>([
+        [t('genderM'), 'Мужской'],
+        [t('genderF'), 'Женский']
+    ]);
+
+    const jobMap = new Map<string, string>([
+        [t('jobPilot'), 'Пилот'],
+        [t('jobDriver'), 'Водитель'],
+        [t('jobStew'), 'Стюардесса'],
+    ]);
+
+    const languageMap = new Map<string, string>([
+        [t('lanEng'), 'Английский'],
+        [t('lanEsp'), 'Испанский'],
+        [t('lanRus'), 'Русский'],
+    ]);
 
     async function clickButton() {
         const date = new Date(age?.$d);
-        if (firstName && secondName && gender && age && job && special) {
+        const gen = genderMap.get(gender);
+        const jb = jobMap.get(job);
+        let sp;
+
+        if (jb === 'Стюардесса') {
+            sp = languageMap.get(special);
+        } else {
+            sp = special;
+        }
+
+        if (firstName && secondName && gen && age && jb && sp) {
             await PersonService.createPerson({
                 firstName,
                 secondName,
                 age: date.getDate().toString() + "." + date.getMonth().toString() + "." + date.getFullYear().toString(),
-                gender
-            }, special, job);
+                gender: gen,
+            }, sp, jb);
             setFlag(false);
             relocate('/')
         } else {
@@ -69,13 +99,13 @@ const AddPersonPage: FC = () => {
 
     function ProfParam(s: string) {
         switch (s) {
-            case "Пилот":
+            case t('jobPilot'):
                 setSpecial(null);
                 break;
-            case "Водитель":
+            case t('jobDriver'):
                 setSpecial(null);
                 break;
-            case "Стюардесса":
+            case t('jobStew'):
                 setSpecial([]);
                 break;
         }
@@ -88,37 +118,37 @@ const AddPersonPage: FC = () => {
 
     return (
         <div className={styles.con}>
-            <FirstInput placeholder={"Имя"} {...InputCss} onChange={setName}/>
-            <FirstInput placeholder={"Фамилия"} {...InputCss} onChange={setSurname}/>
+            <FirstInput placeholder={t('name')} {...InputCss} onChange={setName}/>
+            <FirstInput placeholder={t('surname')} {...InputCss} onChange={setSurname}/>
 
-            <FirstSelect placeholder={"Выберите пол"} variables={genderArray} {...SelectCSS}
+            <FirstSelect placeholder={t('chooseGender')} variables={genderArray} {...SelectCSS}
                          selector={setGender} onChangeValue={ProfParam}/>
 
             <DataPickerNewPerson {...DataPickerCss} setAge={setAge}/>
 
-            <FirstSelect placeholder={"Выберите профессию"}
+            <FirstSelect placeholder={t('chooseJob')}
                          variables={jobArray} {...SelectCSS} selector={setJob} onChangeValue={ProfParam}/>
 
             {
                 job === jobArray[0] ?
                     (<>
-                        <FirstInput placeholder={"Полетная лицензия"} {...InputCss} onChange={setSpecial}/>
+                        <FirstInput placeholder={t('flightLycense')} {...InputCss} onChange={setSpecial}/>
                     </>)
                     : job === jobArray[1] ? (<>
-                            <FirstInput placeholder={"Водительские права"} {...InputCss} onChange={setSpecial}/>
+                            <FirstInput placeholder={t('driveLycense')} {...InputCss} onChange={setSpecial}/>
                         </>)
                         : job === jobArray[2] ? (<>
-                                <ArrayInput array={languagesArray} placeholder={"Выберете языки"} {...LanguagesCSS}
+                                <ArrayInput array={languagesArray} placeholder={t('chooseLanguages')} {...LanguagesCSS}
                                             setChoosenJobs={setSpecial} choosenLanguages={special}/>
                             </>)
                             : null
             }
             {flag &&
-                <p style={{color: 'red'}}>Заполните все поля</p>
+                <p style={{color: 'red'}}>{t('fillAll')}</p>
             }
             <div style={{display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: "30px"}}>
-                <OutlinedButton onClick={clickButtonBack}>Отмена</OutlinedButton>
-                <OutlinedButton onClick={clickButton}>Добавить работягу</OutlinedButton>
+                <OutlinedButton onClick={clickButtonBack}>{t('cancel')}</OutlinedButton>
+                <OutlinedButton onClick={clickButton}>{t('addWorkerBut')}</OutlinedButton>
             </div>
 
         </div>

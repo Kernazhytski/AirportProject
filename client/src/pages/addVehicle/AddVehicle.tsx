@@ -3,14 +3,15 @@ import {VehicleService} from "../../services/VehicleService";
 import styles from "./AddVehicle.module.css";
 import FirstInput from "../../components/UI/inputs/firstInput/FirstInput";
 import FirstSelect from "../../components/UI/selects/selectGender/FirstSelect";
-import DataPickerNewPerson from "../../components/UI/datePickers/DataPickerNewPerson/DataPickerNewPerson";
-import ArrayInput from "../../components/UI/inputs/arrayInputs/ArrayInput";
 import OutlinedButton from "../../components/UI/Buttons/outlinedButton/OutlinedButton";
 import {useNavigate} from "react-router-dom";
 import NumberInput from "../../components/UI/inputs/numberInput/numberInput";
+import {useTranslation} from "react-i18next";
 
 const AddVehicle = () => {
     let loc = useNavigate();
+
+    const {t} = useTranslation();
 
     function relocate(location: string): void {
         loc(location)
@@ -20,7 +21,7 @@ const AddVehicle = () => {
 
     const [number, setNumber] = useState<string>();
     const [model, setModel] = useState<string>();
-    const [vehicleType, setVehicleType] = useState("Самолет")
+    const [vehicleType, setVehicleType] = useState(t('vehPlane'))
     const [crews, setCrews] = useState<number>(0);
     const [passangers, setPassangers] = useState<number>(0);
     const [fuel, setFuel] = useState<number>(0);
@@ -38,13 +39,21 @@ const AddVehicle = () => {
         margin: "20px 0 0 0"
     }
 
-    const vehicleArray = ["Самолет", "Автобус", "Автозаправщик"];
+    const vehicleArray = [t('vehPlane'), t('vehBus'), t('vehFet')];
+
+    const vehMap = new Map<string, string>([
+        [t('vehPlane'), "Самолет"],
+        [t('vehBus'), "Автобус"],
+        [t('vehFet'), "Автозаправщик"],
+    ])
 
     async function clickButton() {
-        console.log(passangers)
+
+        const v = vehMap.get(vehicleType);
+
         if (number !== undefined &&
             model !== undefined &&
-            vehicleType !== undefined &&
+            v !== undefined &&
             crews !== undefined &&
             passangers !== undefined &&
             fuel !== undefined) {
@@ -54,7 +63,7 @@ const AddVehicle = () => {
                 number: number,
                 passengers: passangers,
                 fuelVolume: fuel
-            }, vehicleType)
+            }, v)
             setFlag(false);
             relocate('/');
         } else {
@@ -69,34 +78,34 @@ const AddVehicle = () => {
 
     return (
         <div className={styles.con}>
-            <FirstInput placeholder={"Модель"} {...InputCss} onChange={setModel}/>
-            <FirstInput placeholder={"Номер"} {...InputCss} onChange={setNumber}/>
+            <FirstInput placeholder={t('model')} {...InputCss} onChange={setModel}/>
+            <FirstInput placeholder={t('number')} {...InputCss} onChange={setNumber}/>
 
-            <FirstSelect placeholder={"Выберите вид техники"}
+            <FirstSelect placeholder={t('chooseType')}
                          variables={vehicleArray} {...SelectCSS} selector={setVehicleType}/>
 
             <div style={{display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: "30px"}}>
                 <div style={{width: "100%"}}>
-                    <p>Экипаж</p>
+                    <p>{t('crew')}</p>
                     <NumberInput placeholder={'Экипаж'} value={crews} onChange={setCrews} disabled={false}/>
                 </div>
                 <div style={{width: "100%"}}>
-                    <p>Пассажиры</p>
+                    <p>{t('passenger')}</p>
                     <NumberInput placeholder={'Пассажиры'} value={passangers} onChange={setPassangers}
-                                 disabled={vehicleType === "Автозаправщик"}/>
+                                 disabled={vehicleType === t('vehFet')}/>
                 </div>
                 <div style={{width: "100%"}}>
-                    <p>Объем топлива</p>
+                    <p>{t('fuel')}</p>
                     <NumberInput placeholder={'Объем топлива'} value={fuel} onChange={setFuel}
-                                 disabled={vehicleType !== "Автозаправщик"}/>
+                                 disabled={vehicleType !== t('vehFet')}/>
                 </div>
             </div>
             {flag &&
-                <p style={{color: 'red'}}>Заполните все поля</p>
+                <p style={{color: 'red'}}>{t('fillAll')}</p>
             }
             <div style={{display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: "30px"}}>
-                <OutlinedButton onClick={clickButtonBack}>Отмена</OutlinedButton>
-                <OutlinedButton onClick={clickButton}>Добавить технику</OutlinedButton>
+                <OutlinedButton onClick={clickButtonBack}>{t('cancel')}</OutlinedButton>
+                <OutlinedButton onClick={clickButton}>{t('addVeh')}</OutlinedButton>
             </div>
 
         </div>
