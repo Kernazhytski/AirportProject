@@ -4,12 +4,15 @@ import styles from "../personListPage/PersonListPage.module.css";
 import OutlinedButton from "../../components/UI/Buttons/outlinedButton/OutlinedButton";
 import {VehicleService} from "../../services/VehicleService";
 import LightTableVehicle from "../../components/UI/Table/LightTableVehicles/LightTableVehicle";
+import {useTranslation} from "react-i18next";
 
 const VehicleListPage = () => {
     const [job, setJob] = useState<string>("bus");
     const [data, setData] = useState();
 
     let loc = useNavigate();
+
+    const {t} = useTranslation();
 
     function relocate(location: string): void {
         loc(location)
@@ -28,12 +31,12 @@ const VehicleListPage = () => {
     return (
         <div className={styles.con}>
             <select className={styles.sel} onChange={(e) => setJob(e.target.value)}>
-                <option value="bus" selected>Автобус</option>
-                <option value="plane">Самолет</option>
-                <option value="fettlingMachine">Автозаправщик</option>
+                <option value="bus" selected>{t('vehPlane')}</option>
+                <option value="plane">{t('vehBus')}</option>
+                <option value="fettlingMachine">{t('vehFet')}</option>
             </select>
             <LightTableVehicle typeVehicle={job} data={data}/>
-            <OutlinedButton onClick={clickButtonBack}>Назад</OutlinedButton>
+            <OutlinedButton onClick={clickButtonBack}>{t('back')}</OutlinedButton>
         </div>
     );
 };

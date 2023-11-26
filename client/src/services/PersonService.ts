@@ -3,6 +3,9 @@ import {$api} from '../http/api'
 
 export class PersonService {
     static async createPerson(person: IPersonNew, special: any, job: string) {
+        console.log(person);
+        console.log(special);
+        console.log(job);
         switch (job) {
             case "Пилот":
                 $api.post('/person/addPilot', {...person, pilotLycense: special})

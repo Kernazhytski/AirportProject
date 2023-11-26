@@ -1,5 +1,6 @@
 import React, {FC, useEffect} from 'react';
 import Table from 'react-bootstrap/Table';
+import {useTranslation} from "react-i18next";
 
 interface ITable {
     typejob: string;
@@ -8,10 +9,14 @@ interface ITable {
 
 const LightTable: FC<ITable> = ({typejob, data}) => {
 
+    const {t} = useTranslation();
+
     useEffect(() => {
         if (data) {
-            console.log(data);
-            console.log(data["0"]);
+            console.log("data", data);
+            console.log("array", data["0"]);
+        } else {
+            console.log('no data')
         }
     }, [data])
 
@@ -21,11 +26,11 @@ const LightTable: FC<ITable> = ({typejob, data}) => {
                 <Table className={"table table-bordered table-light"} style={{width: "4  00px"}}>
                     <thead>
                     <tr>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Age</th>
-                        <th>Gender</th>
-                        <th>Pilot Lycense</th>
+                        <th>{t('name')}</th>
+                        <th>{t('surname')}</th>
+                        <th>{t('age')}</th>
+                        <th>{t('gender')}</th>
+                        <th>{t('flightLycense')}</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -47,11 +52,11 @@ const LightTable: FC<ITable> = ({typejob, data}) => {
                 <Table className={"table table-bordered table-light"} style={{width: "4  00px"}}>
                     <thead>
                     <tr>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Age</th>
-                        <th>Gender</th>
-                        <th>Driver Lycense</th>
+                        <th>{t('name')}</th>
+                        <th>{t('surname')}</th>
+                        <th>{t('age')}</th>
+                        <th>{t('gender')}</th>
+                        <th>{t('driveLycense')}</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -73,11 +78,11 @@ const LightTable: FC<ITable> = ({typejob, data}) => {
                 <Table className={"table table-bordered table-light"} style={{width: "4  00px"}}>
                     <thead>
                     <tr>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Age</th>
-                        <th>Gender</th>
-                        <th>Languages</th>
+                        <th>{t('name')}</th>
+                        <th>{t('surname')}</th>
+                        <th>{t('age')}</th>
+                        <th>{t('gender')}</th>
+                        <th>{t('languages')}</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -88,10 +93,9 @@ const LightTable: FC<ITable> = ({typejob, data}) => {
                                 <td>{person.secondName}</td>
                                 <td>{person.age}</td>
                                 <td>{person.gender.gender}</td>
-                                <td>{person.languages.map((language: any) => <div>
-                                    {language}
-                                    <br/>
-                                </div>)}</td>
+                                <td>{
+                                    person.languages &&
+                                    person?.languages.map((lan: any) => <div>{lan}<br/></div>)}</td>
                             </tr>
                         )
                     }
