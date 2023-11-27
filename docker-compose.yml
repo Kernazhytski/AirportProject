@@ -1,32 +1,10 @@
 version: "3.9"
 
 services:
-  # Сервис для React-приложения
-  react-app:
+  front:
+    container_name: front
     build:
       context: ./client
-    ports:
-      - "3000:3000"
-    volumes:
-      - ./client:/app # Монтируем код React-приложения в контейнер
-    command: npm start # Команда для запуска React-приложения
-
-  # Сервис для Spring Java-сервера
-  spring-server:
-    build:
-      context: ./server
-    ports:
-      - "8080:8080"
-    volumes:
-      - ./server:/app # Монтируем код Spring-приложения в контейнер
-    command: java -jar your-spring-app.jar # Команда для запуска Spring-приложения
-
-  # Сервис базы данных (если используется)
-  database:
-    image: postgres:latest
-    environment:
-      POSTGRES_DB: your_database_name
-      POSTGRES_USER: your_database_user
-      POSTGRES_PASSWORD: your_database_password
-    ports:
-      - "5432:5432"
+      dockerfile: ./Dockerfile
+    env_file:
+      - ./client/.env

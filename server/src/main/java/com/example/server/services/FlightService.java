@@ -8,7 +8,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.StoredProcedureQuery;
 import org.apache.log4j.Logger;
-import org.example.DateCompare;
+import org.example.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -31,6 +31,8 @@ public class FlightService {
         Flight flight = buildFlightRequest(flightRequestDTO);
 
         List<Flight> existingFlights = flightRepo.findByPlaneId(flight.getPlaneId());
+
+
 
         boolean hasConflict = existingFlights.stream()
                 .anyMatch(existingFlight -> DateCompare.compareDates(
