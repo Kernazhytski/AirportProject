@@ -5,7 +5,6 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import lombok.experimental.Accessors;
 
-import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Objects;
 

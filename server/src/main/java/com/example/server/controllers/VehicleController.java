@@ -80,6 +80,8 @@ public class VehicleController {
             vehicle = vehicleService.getVehicleById(vehicleType, vehicleId);
         } catch (EntityNotFoundException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(e.getMessage());
         }
 
         try {

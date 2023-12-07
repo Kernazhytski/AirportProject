@@ -95,11 +95,11 @@ public class PersonService {
 
     public Person getPersonById(String type, Long id) {
         return switch (type) {
-            case "pilot" -> pilotRepo.findById(id).orElseThrow(() -> new EntityNotFoundException("bus not found"));
-            case "driver" -> driverRepo.findById(id).orElseThrow(() -> new EntityNotFoundException("plane not found"));
+            case "pilot" -> pilotRepo.findById(id).orElseThrow(() -> new EntityNotFoundException("pilot not found"));
+            case "driver" -> driverRepo.findById(id).orElseThrow(() -> new EntityNotFoundException("driver not found"));
             case "stewardess" ->
-                    stewardessRepo.findById(id).orElseThrow(() -> new EntityNotFoundException("fettlingMachine not found"));
-            default -> null;
+                    stewardessRepo.findById(id).orElseThrow(() -> new EntityNotFoundException("stewardess not found"));
+            default -> throw new IllegalArgumentException("Unexpected type of work");
         };
     }
 
@@ -145,6 +145,7 @@ public class PersonService {
 
     private DriverResponseDTO buildDriverResponse(Driver driver) {
         return new DriverResponseDTO()
+                .setId(driver.getId())
                 .setFirstName(driver.getFirstName())
                 .setSecondName(driver.getSecondName())
                 .setAge(driver.getAge())
@@ -159,12 +160,10 @@ public class PersonService {
     }
 
     private Driver buildDriverRequest(DriverRequestDTO requestDTO) {
-        VehicleRequestDTO vehicleRequestDTO = requestDTO.getBusRequestDTO() == null ? requestDTO.getFettlingMachineRequestDTO(): requestDTO.getBusRequestDTO();
+        VehicleRequestDTO vehicleRequestDTO = requestDTO.getBusRequestDTO() == null ? requestDTO.getFettlingMachineRequestDTO() : requestDTO.getBusRequestDTO();
         Vehicle vehicle = null;
 
-        if(vehicleRequestDTO == null) {
-            vehicle = null;
-        } else {
+        if(vehicleRequestDTO != null) {
             switch (vehicleRequestDTO.getType()) {
                 case "bus" -> vehicle = new Bus()
                         .setPassengers(requestDTO.getBusRequestDTO().getPassengers())
@@ -194,6 +193,7 @@ public class PersonService {
 
     private PilotResponseDTO buildPilotResponse(Pilot pilot) {
         return new PilotResponseDTO()
+                .setId(pilot.getId())
                 .setFirstName(pilot.getFirstName())
                 .setSecondName(pilot.getSecondName())
                 .setAge(pilot.getAge())
@@ -215,7 +215,7 @@ public class PersonService {
                 .setAge(requestDTO.getAge())
                 .setGender(new Gender()
                         .setGender(requestDTO.getGender().getGender()))
-                .setVehicle(new Plane()
+                .setVehicle(requestDTO.getPlaneRequestDTO() == null ? null: new Plane()
                         .setPassengers(requestDTO.getPlaneRequestDTO().getPassengers())
                         .setType(requestDTO.getPlaneRequestDTO().getType())
                         .setModel(requestDTO.getPlaneRequestDTO().getModel())
@@ -225,6 +225,7 @@ public class PersonService {
 
     private StewardessResponseDTO buildStewardessResponse(Stewardess stewardess) {
         return new StewardessResponseDTO()
+                .setId(stewardess.getId())
                 .setLanguages(stewardess.getLanguages())
                 .setFirstName(stewardess.getFirstName())
                 .setSecondName(stewardess.getSecondName())
