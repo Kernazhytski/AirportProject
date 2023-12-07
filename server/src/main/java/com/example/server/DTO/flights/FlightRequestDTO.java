@@ -3,7 +3,6 @@ package com.example.server.DTO.flights;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
-import java.time.Duration;
 import java.time.LocalDateTime;
 
 @Data
