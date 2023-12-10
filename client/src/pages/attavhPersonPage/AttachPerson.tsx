@@ -22,11 +22,36 @@ const AttachPerson = () => {
         relocate('/')
     }
 
+    async function addToVeh() {
+        console.log(person);
+        console.log(vehicle);
+        if (person >= dataPerson['0'].length || vehicle >= dataVehicle['0'].length) {
+            console.log('lol')
+            return;
+        }
+        const choosedPerson = dataPerson['0'][person];
+        const choosedVehicle = dataVehicle['0'][vehicle];
+
+        let choosedJob = '';
+        if (job === 'pilot') {
+            choosedJob = 'Pilot';
+        } else if (job === 'stewardess') {
+            choosedJob = 'Stewardess';
+        } else if (job === 'driver') {
+            choosedJob = 'Driver';
+        }
+        console.log(choosedPerson.id)
+        console.log(choosedJob)
+        console.log(choosedVehicle.id)
+        console.log(choosedVehicle.type)
+        await PersonService.attachPerson(choosedPerson.id, choosedJob, choosedVehicle.id, choosedVehicle.type)
+    }
+
     const [job, setJob] = useState<string>("pilot");
     const [dataPerson, setDataPerson] = useState<any>();
     const [dataVehicle, setDataVehicle] = useState<any>();
-    const [person, setPerson] = useState<number>();
-    const [vehicle, setVehicle] = useState<number>();
+    const [person, setPerson] = useState<number>(0);
+    const [vehicle, setVehicle] = useState<number>(0);
 
     useMemo(async () => {
         const newPersons: any = await PersonService.getPersons(job);
@@ -78,13 +103,13 @@ const AttachPerson = () => {
                     <select className={styles.sel} onChange={(e) => setVehicle(parseInt(e.target.value))}>
                         {dataVehicle &&
                             dataVehicle["0"].map((person: any, index: number) =>
-                                <option value={index} selected>{person.model + " " + person.number}</option>
+                                <option value={index.toString()} selected>{person.model + " " + person.number}</option>
                             )
                         }
                     </select>
                 </div>
             </div>
-            <OutlinedButton onClick={clickButtonBack}>{t('addToVeh')}</OutlinedButton>
+            <OutlinedButton onClick={addToVeh}>{t('addToVeh')}</OutlinedButton>
             <br/>
             <OutlinedButton onClick={clickButtonBack}>{t('back')}</OutlinedButton>
         </div>

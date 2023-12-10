@@ -9,23 +9,24 @@ interface Props {
     background?: string;
     margin?: string;
     width?: string;
+    label: string;
 
-    setAge(age: Date|null): void;
+    setAge(age: Date | null): void;
 }
 
 const DataPickerNewPerson: FC<Props> = (Props: Props) => {
 
     const {t} = useTranslation();
 
-    const handleChange = (date:Date | null) => {
+    const handleChange = (date: Date | null) => {
         Props.setAge(date);
     }
 
     return (
         <div style={{...Props, display: "inline-block", borderRadius: "5px"}}>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DatePicker label={t('chooseBirthday')} className={styles.date}
-                            slotProps={{textField: {fullWidth: true}}} onChange={handleChange} />
+                <DatePicker label={Props.label} className={styles.date}
+                            slotProps={{textField: {fullWidth: true}}} onChange={handleChange}/>
             </LocalizationProvider>
         </div>
     )
