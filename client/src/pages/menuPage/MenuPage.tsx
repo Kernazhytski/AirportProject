@@ -33,6 +33,7 @@ const MenuPage: FC = () => {
                     <LightButton onClick={() => relocate("/addVehicle")}>{t('addVeh')}</LightButton>
                     <LightButton onClick={() => relocate("/personList")}>{t('workerList')}</LightButton>
                     <LightButton onClick={() => relocate("/vehicleList")}>{t('vehList')}</LightButton>
+                    <LightButton onClick={() => relocate("/attachPerson")}>{t('attachPerson')}</LightButton>
                 </div>
             </div>
         </div>

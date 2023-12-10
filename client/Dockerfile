@@ -1,5 +1,4 @@
-# Используем Node.js образ
-FROM node:latest
+FROM node:19-alpine as Build
 
 # Устанавливаем рабочую директорию внутри контейнера
 WORKDIR /usr/src/app
