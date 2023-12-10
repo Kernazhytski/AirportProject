@@ -11,15 +11,8 @@ const LightTableVehicle: FC<ITable> = ({typeVehicle, data}) => {
 
     const {t} = useTranslation();
 
-    useEffect(() => {
-        if (data) {
-            console.log(data);
-            console.log(data["0"]);
-        }
-    }, [data])
-
     return (
-        <div>
+        <div style={{display: 'flex', maxHeight: '350px', overflowY: 'auto', margin: '10px'}}>
             {(typeVehicle === 'bus' && data) &&
                 <Table className={"table table-bordered table-light"} style={{width: "4  00px"}}>
                     <thead>

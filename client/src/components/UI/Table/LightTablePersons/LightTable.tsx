@@ -1,6 +1,7 @@
 import React, {FC, useEffect} from 'react';
 import Table from 'react-bootstrap/Table';
 import {useTranslation} from "react-i18next";
+import styles from './LightTable.module.css'
 
 interface ITable {
     typejob: string;
@@ -11,17 +12,8 @@ const LightTable: FC<ITable> = ({typejob, data}) => {
 
     const {t} = useTranslation();
 
-    useEffect(() => {
-        if (data) {
-            console.log("data", data);
-            console.log("array", data["0"]);
-        } else {
-            console.log('no data')
-        }
-    }, [data])
-
     return (
-        <div>
+        <div style={{display: 'flex', maxHeight: '350px', overflowY: 'auto', margin: '10px'}}>
             {(typejob === 'pilot' && data) &&
                 <Table className={"table table-bordered table-light"} style={{width: "4  00px"}}>
                     <thead>

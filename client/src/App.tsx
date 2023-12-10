@@ -7,12 +7,12 @@ import AddPersonPage from "./pages/addPerson/AddPersonPage";
 import AddVehicle from "./pages/addVehicle/AddVehicle";
 import PersonListPage from "./pages/personListPage/PersonListPage";
 import VehicleListPage from "./pages/vehicleListPage/VehicleListPage";
+import AttachPerson from "./pages/attavhPersonPage/AttachPerson";
 
 
 function App() {
     return (
         <div className={styles.back}>
-
             <Shedule>
                 <Router>
                     <Routes>
@@ -20,6 +20,7 @@ function App() {
                         <Route path="/addVehicle" element={<AddVehicle/>}/>
                         <Route path="/personList" element={<PersonListPage/>}/>
                         <Route path="/vehicleList" element={<VehicleListPage/>}/>
+                        <Route path="/attachPerson" element={<AttachPerson/>}/>
                         <Route path="*" element={<MenuPage/>}/>
                     </Routes>
                 </Router>

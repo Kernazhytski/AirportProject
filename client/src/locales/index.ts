@@ -11,6 +11,7 @@ import {
 } from "../components/UI/Table/LightTablePersons/language";
 import {tableVehLangDE, tableVehLangEN, tableVehLangRU} from "../components/UI/Table/LightTableVehicles/language";
 import {getVehLangDE, getVehLangEN, getVehLangRU} from "../pages/vehicleListPage/language";
+import {attachLangDE, attachLangEN, attachLangRU} from "../pages/attavhPersonPage/language";
 
 // Языковые ресурсы
 const resources = {
@@ -26,7 +27,8 @@ const resources = {
             back: 'Back',
             ...tablePersonLangEN,
             ...tableVehLangEN,
-            ...getVehLangEN
+            ...getVehLangEN,
+            ...attachLangEN
         },
     },
     ru: {
@@ -40,7 +42,8 @@ const resources = {
             back: 'Назад',
             ...tablePersonLangRU,
             ...tableVehLangRU,
-            ...getVehLangRU
+            ...getVehLangRU,
+            ...attachLangRU
         },
     },
     de: {
@@ -55,7 +58,8 @@ const resources = {
             back: 'Zurück',
             ...tablePersonLangDE,
             ...tableVehLangDE,
-            ...getVehLangDE
+            ...getVehLangDE,
+            ...attachLangDE
         },
     },
 };

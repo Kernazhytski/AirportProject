@@ -22,4 +22,8 @@ export class PersonService {
     static async getPersons(job: string) {
         return $api.get('/person/list', {params: {job: job}}).then()
     }
+
+    static async attachPerson(){
+        return $api.post('/vehicle/assignPerson',)
+    }
 }

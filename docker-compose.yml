@@ -1,10 +1,36 @@
 version: "3.9"
 
+volumes:
+  mysql_data:
+
+
 services:
-  front:
-    container_name: front
+  # Сервис для React-приложения
+  frontend:
+    container_name: react-app
     build:
       context: ./client
-      dockerfile: ./Dockerfile
-    env_file:
-      - ./client/.env
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./client:/usr/src/app
+
+  db:
+    image: mysql:latest
+    container_name: db
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: 12345  # Установите пароль для root пользователя
+      MYSQL_DATABASE: airport  # Название вашей базы данных
+      MYSQL_USER: user  # Имя пользователя базы данных
+      MYSQL_PASSWORD: 12345  # Пароль пользователя базы данных
+
+  backend:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: spring-app
+    ports:
+      - "8088:8088"
