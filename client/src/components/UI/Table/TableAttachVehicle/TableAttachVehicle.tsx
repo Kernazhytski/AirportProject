@@ -12,7 +12,7 @@ const TableAttachVehicle: FC<ITable> = ({data}) => {
 
     return (
 
-        <div style={{display: 'flex', maxHeight: '200px', overflowY: 'auto', margin: '10px'}}>
+        <div style={{display: 'flex', maxHeight: '200px', overflowY: 'auto', margin: '10px', width: '200px'}}>
             {data &&
                 <Table className={"table table-bordered table-light"} style={{width: "4  00px"}}>
                     <thead>

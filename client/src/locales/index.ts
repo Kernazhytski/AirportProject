@@ -12,6 +12,8 @@ import {
 import {tableVehLangDE, tableVehLangEN, tableVehLangRU} from "../components/UI/Table/LightTableVehicles/language";
 import {getVehLangDE, getVehLangEN, getVehLangRU} from "../pages/vehicleListPage/language";
 import {attachLangDE, attachLangEN, attachLangRU} from "../pages/attavhPersonPage/language";
+import {attachVehLangDE, attachVehLangEN, attachVehLangRU} from "../pages/attachVehicleToFlight/languages";
+import {ListFlightsLangDE, ListFlightsLangEN, ListFlightsLangRU} from "../pages/listOfFlightsPages/languages";
 
 // Языковые ресурсы
 const resources = {
@@ -28,7 +30,9 @@ const resources = {
             ...tablePersonLangEN,
             ...tableVehLangEN,
             ...getVehLangEN,
-            ...attachLangEN
+            ...attachLangEN,
+            ...attachVehLangEN,
+            ...ListFlightsLangEN
         },
     },
     ru: {
@@ -43,7 +47,9 @@ const resources = {
             ...tablePersonLangRU,
             ...tableVehLangRU,
             ...getVehLangRU,
-            ...attachLangRU
+            ...attachLangRU,
+            ...attachVehLangRU,
+            ...ListFlightsLangRU
         },
     },
     de: {
@@ -59,7 +65,9 @@ const resources = {
             ...tablePersonLangDE,
             ...tableVehLangDE,
             ...getVehLangDE,
-            ...attachLangDE
+            ...attachLangDE,
+            ...attachVehLangDE,
+            ...ListFlightsLangDE
         },
     },
 };

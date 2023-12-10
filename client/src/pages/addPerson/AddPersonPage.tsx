@@ -32,7 +32,8 @@ const AddPersonPage: FC = () => {
     const DataPickerCss = {
         background: "white",
         margin: "20px 0px 0px 0px",
-        width: "100%"
+        width: "100%",
+        label: t('chooseBirthday')
     }
 
     const InputCss = {

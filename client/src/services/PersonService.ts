@@ -23,7 +23,14 @@ export class PersonService {
         return $api.get('/person/list', {params: {job: job}}).then()
     }
 
-    static async attachPerson(){
-        return $api.post('/vehicle/assignPerson',)
+    static async attachPerson(personId: number, personType: string, vehicleId: number, vehicleType: string) {
+        console.log('obj', {
+            personId: personId,
+            personType: personType,
+            vehicleId: vehicleId,
+            vehicleType: vehicleType
+        })
+
+        return $api.post(`/vehicle/assignPerson?personId=${personId}&personType=${personType.toLowerCase()}&vehicleId=${vehicleId}&vehicleType=${vehicleType.toLowerCase()}`,{})
     }
 }
