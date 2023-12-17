@@ -143,7 +143,7 @@ public class PersonService {
         return response;
     }
 
-    private DriverResponseDTO buildDriverResponse(Driver driver) {
+    public DriverResponseDTO buildDriverResponse(Driver driver) {
         return new DriverResponseDTO()
                 .setId(driver.getId())
                 .setFirstName(driver.getFirstName())
@@ -191,7 +191,7 @@ public class PersonService {
 
     }
 
-    private PilotResponseDTO buildPilotResponse(Pilot pilot) {
+    public PilotResponseDTO buildPilotResponse(Pilot pilot) {
         return new PilotResponseDTO()
                 .setId(pilot.getId())
                 .setFirstName(pilot.getFirstName())
@@ -223,7 +223,7 @@ public class PersonService {
                         .setMaxCrewSize(requestDTO.getPlaneRequestDTO().getMaxCrewSize()));
     }
 
-    private StewardessResponseDTO buildStewardessResponse(Stewardess stewardess) {
+    public StewardessResponseDTO buildStewardessResponse(Stewardess stewardess) {
         return new StewardessResponseDTO()
                 .setId(stewardess.getId())
                 .setLanguages(stewardess.getLanguages())
