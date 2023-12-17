@@ -4,6 +4,7 @@ import {useTranslation} from "react-i18next";
 import {useNavigate} from "react-router-dom";
 import Table from "react-bootstrap/Table";
 import {PersonService} from "../../services/PersonService";
+import OutlinedButton from "../../components/UI/Buttons/outlinedButton/OutlinedButton";
 
 const AttachedPersonsPages = () => {
 
@@ -16,6 +17,10 @@ const AttachedPersonsPages = () => {
 
     function relocate(location: string): void {
         loc(location)
+    }
+
+    async function clickButtonBack() {
+        relocate('/')
     }
 
     useMemo(async () => {
@@ -69,7 +74,7 @@ const AttachedPersonsPages = () => {
                         </tbody>
                     </Table>}
             </div>}
-
+            <OutlinedButton onClick={clickButtonBack}>{t('back')}</OutlinedButton>
         </div>
 
 
