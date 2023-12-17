@@ -7,13 +7,13 @@ export class VehicleService {
         console.log(vehicleType);
         switch (vehicleType) {
             case "Самолет":
-                await $api.post('/vehicle/addPlane', {...vehicle, type: 'Plane'})
+                await $api.post('/vehicle/addPlane', {...vehicle, type: 'plane'})
                 break;
             case "Автобус":
-                await $api.post('/vehicle/addBus', {...vehicle, type: 'Bus'})
+                await $api.post('/vehicle/addBus', {...vehicle, type: 'bus'})
                 break;
             case "Автозаправщик":
-                await $api.post('/vehicle/addFettlingMachine', {...vehicle, type: 'FettilingMachine'})
+                await $api.post('/vehicle/addFettlingMachine', {...vehicle, type: 'fettilingMachine'})
                 break;
         }
     }

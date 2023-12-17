@@ -1,5 +1,5 @@
 .back {
-    background: url("../public/fon.png") no-repeat center center fixed;
+    background: url("../public/fon.webp") no-repeat center center fixed;
     background-size: cover;
     /* Масштабируем изображение так, чтобы оно полностью покрывало задний фон */
     background-attachment: fixed;

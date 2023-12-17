@@ -58,7 +58,7 @@ const AddVehicle = () => {
             passangers !== undefined &&
             fuel !== undefined) {
             await VehicleService.createVehicle({
-                crews: crews,
+                maxCrewSize: crews,
                 model: model,
                 number: number,
                 passengers: passangers,
