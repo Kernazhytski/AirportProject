@@ -66,7 +66,7 @@ public class FlightService {
         LOGGER.info("Flight status updates finished");
     }
 
-    private FlightResponseDTO buildFlightResponse(Flight flight) {
+    public FlightResponseDTO buildFlightResponse(Flight flight) {
         return new FlightResponseDTO()
                 .setFlightNumber(flight.getFlightNumber())
                 .setDepartureTime(flight.getDepartureTime())
