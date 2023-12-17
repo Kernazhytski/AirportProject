@@ -1,5 +1,6 @@
 package com.example.server.DTO.persons;
 
+import com.example.server.DTO.vehicles.VehicleResponseDTO;
 import com.example.server.models.Gender;
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -13,4 +14,5 @@ public class StewardessResponseDTO {
     private String age;
     private Gender gender;
     private String[] languages;
+    private VehicleResponseDTO vehicleResponseDTO;
 }

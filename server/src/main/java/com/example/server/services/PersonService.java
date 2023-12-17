@@ -231,7 +231,12 @@ public class PersonService {
                 .setSecondName(stewardess.getSecondName())
                 .setAge(stewardess.getAge())
                 .setGender(new Gender()
-                        .setGender(stewardess.getGender().getGender()));
+                        .setGender(stewardess.getGender().getGender()))
+                .setVehicleResponseDTO(stewardess.getVehicle() == null ? null : new VehicleResponseDTO()
+                .setCrews(stewardess.getVehicle().getCrews())
+                .setType(stewardess.getVehicle().getType())
+                .setModel(stewardess.getVehicle().getModel())
+                .setNumber(stewardess.getVehicle().getNumber()));
     }
 
     private Stewardess buildStewardessRequest(StewardessRequestDTO requestDTO) {
@@ -241,6 +246,12 @@ public class PersonService {
                 .setSecondName(requestDTO.getSecondName())
                 .setAge(requestDTO.getAge())
                 .setGender(new Gender()
-                        .setGender(requestDTO.getGender().getGender()));
+                        .setGender(requestDTO.getGender().getGender()))
+                .setVehicle(requestDTO.getPlaneRequestDTO() == null ? null: new Plane()
+                        .setPassengers(requestDTO.getPlaneRequestDTO().getPassengers())
+                        .setType(requestDTO.getPlaneRequestDTO().getType())
+                        .setModel(requestDTO.getPlaneRequestDTO().getModel())
+                        .setNumber(requestDTO.getPlaneRequestDTO().getNumber())
+                        .setMaxCrewSize(requestDTO.getPlaneRequestDTO().getMaxCrewSize()));
     }
 }
