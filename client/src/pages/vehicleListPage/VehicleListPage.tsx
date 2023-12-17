@@ -7,7 +7,7 @@ import LightTableVehicle from "../../components/UI/Table/LightTableVehicles/Ligh
 import {useTranslation} from "react-i18next";
 
 const VehicleListPage = () => {
-    const [job, setJob] = useState<string>("bus");
+    const [job, setJob] = useState<string>("plane");
     const [data, setData] = useState();
 
     let loc = useNavigate();
@@ -31,8 +31,8 @@ const VehicleListPage = () => {
     return (
         <div className={styles.con}>
             <select className={styles.sel} onChange={(e) => setJob(e.target.value)}>
-                <option value="bus" selected>{t('vehPlane')}</option>
-                <option value="plane">{t('vehBus')}</option>
+                <option value="plane" selected>{t('vehPlane')}</option>
+                <option value="bus">{t('vehBus')}</option>
                 <option value="fettlingMachine">{t('vehFet')}</option>
             </select>
             <LightTableVehicle typeVehicle={job} data={data}/>

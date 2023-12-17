@@ -64,6 +64,7 @@ const AttachPerson = () => {
             const newPlanes: any = await VehicleService.getVehicle('plane');
             setDataVehicle(newPlanes.data);
         } else if (job === "driver") {
+            console.log('kek')
             const newBuses: any = await VehicleService.getVehicle('bus');
             const newFlet: any = await VehicleService.getVehicle('fettlingMachine');
             setDataVehicle([...newBuses.data, ...newFlet.data]);
