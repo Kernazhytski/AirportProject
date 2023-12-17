@@ -24,9 +24,9 @@ const MenuPage: FC = () => {
 
     return (
         <div>
-            <button onClick={() => changeLanguage('ru')}>ru</button>
-            <button onClick={() => changeLanguage('en')}>en</button>
-            <button onClick={() => changeLanguage('de')}>de</button>
+            <button className={style.butLang} onClick={() => changeLanguage('ru')}>ru</button>
+            <button className={style.butLang} onClick={() => changeLanguage('en')}>en</button>
+            <button className={style.butLang} onClick={() => changeLanguage('de')}>de</button>
             <div className={style.con}>
                 <div className={style.butCon}>
                     <LightButton onClick={() => relocate("/addPerson")}>{t('addWorker')}</LightButton>
@@ -37,7 +37,7 @@ const MenuPage: FC = () => {
                 <div className={style.butCon}>
                     <LightButton onClick={() => relocate("/attachPerson")}>{t('attachPerson')}</LightButton>
                     <LightButton onClick={() => relocate("/attachVehicle")}>{t('makeFlight')}</LightButton>
-                    <LightButton onClick={() => relocate("/attachPerson")}>{t('viewPersonAttachments')}</LightButton>
+                    <LightButton onClick={() => relocate("/attachedList")}>{t('viewPersonAttachments')}</LightButton>
                     <LightButton onClick={() => relocate("/listOfFlights")}>{t('listOfFlights')}</LightButton>
                 </div>
             </div>

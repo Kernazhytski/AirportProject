@@ -5,7 +5,7 @@ export interface IVehicle extends IVehicleNew{
 export interface IVehicleNew {
     model:string;
     number:string;
-    crews:number;
+    maxCrewSize:number;
     passengers:number;
     fuelVolume: number;
 }

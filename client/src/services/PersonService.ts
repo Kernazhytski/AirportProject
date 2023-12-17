@@ -31,6 +31,10 @@ export class PersonService {
             vehicleType: vehicleType
         })
 
-        return $api.post(`/vehicle/assignPerson?personId=${personId}&personType=${personType.toLowerCase()}&vehicleId=${vehicleId}&vehicleType=${vehicleType.toLowerCase()}`,{})
+        return $api.post(`/vehicle/assignPerson?personId=${personId}&personType=${personType.toLowerCase()}&vehicleId=${vehicleId}&vehicleType=${vehicleType.toLowerCase()}`, {})
+    }
+
+    static async getAttachedPersons(vehicle: string) {
+        return $api.get('/get/PersonsVehicle', {params: {type: vehicle}})
     }
 }

@@ -10,6 +10,7 @@ import VehicleListPage from "./pages/vehicleListPage/VehicleListPage";
 import AttachPerson from "./pages/attavhPersonPage/AttachPerson";
 import AttachVehicleToFlight from "./pages/attachVehicleToFlight/AttachVehicleToFlight";
 import ListOfFlightsPage from "./pages/listOfFlightsPages/ListOfFlightsPage";
+import AttachedPersonsPages from "./pages/veiwAttachedPersonsList/AttachedPersonsPages";
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
                         <Route path="/attachPerson" element={<AttachPerson/>}/>
                         <Route path="/attachVehicle" element={<AttachVehicleToFlight/>}/>
                         <Route path="/listOfFlights" element={<ListOfFlightsPage/>}/>
+                        <Route path="/attachedList" element={<AttachedPersonsPages/>}/>
                         <Route path="*" element={<MenuPage/>}/>
                     </Routes>
                 </Router>

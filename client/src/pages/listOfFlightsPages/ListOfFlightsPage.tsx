@@ -31,7 +31,7 @@ const ListOfFlightsPage = () => {
     return (
         <div className={styles.con}>
             <p>Полеты</p>
-            <div style={{display: 'flex', maxHeight: '350px', overflowY: 'auto', margin: '10px', maxWidth: '450px'}}>
+            <div style={{display: 'flex', maxHeight: '350px', overflowY: 'auto', margin: '10px', maxWidth: '750px'}}>
                 {flights &&
                     <Table className={"table table-bordered table-light"} style={{width: "4  00px"}}>
                         <thead>
@@ -52,8 +52,8 @@ const ListOfFlightsPage = () => {
                                     <td>{flight.flightStatus}</td>
                                     <td>{flight.fromTown}</td>
                                     <td>{flight.toTown}</td>
-                                    <td>{flight.departureTime}</td>
-                                    <td>{flight.arrivalTime}</td>
+                                    <td>{flight.departureTime.toString().split('T')[0] + ' ' + flight.departureTime.toString().split('T')[1]}</td>
+                                    <td>{flight.arrivalTime.toString().split('T')[0] + ' ' + flight.departureTime.toString().split('T')[1]}</td>
                                 </tr>
                             )
                         }
